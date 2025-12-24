@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Heart, X, MessageCircle, Car, Plus, Check, ChevronLeft, Send, User, Filter, Star, Bell, Trash2 } from 'lucide-react';
 ```javascript
