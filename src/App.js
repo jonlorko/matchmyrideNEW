@@ -1157,7 +1157,7 @@ if (view === 'register') {
               <div className="grid grid-cols-3 gap-3 mb-3">
                 {carForm.bilder.map((img, index) => (
                   <div key={index} className="relative">
-<img src={img} alt={{{`Auto ${index + 1}`} className="w-full h-32 object-cover rounded-lg" />                    <button 
+<img src={img} alt={`Auto ${index + 1}`} className="w-full h-32 object-cover rounded-lg" />                    <button 
                       onClick={() => setCarForm({...carForm, bilder: carForm.bilder.filter((_, i) => i !== index)})}
                       className="absolute top-1 right-1 bg-white border-2 border-red-200 text-blue-900 rounded-lg p-1 hover:bg-red-600"
                     >
