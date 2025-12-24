@@ -1330,8 +1330,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                   setCurrentImageIndex(0);
                 }}
               >
-                <img src={car.bilder[0]} alt={`${car.marke} ${car.modell}`} className="w-full h-full object-cover" />
-                {car.bilder.length > 1 && (
+<img src={car.bilder[0]} alt={car.marke + ' ' + car.modell} className="w-full h-full object-cover" />                {car.bilder.length > 1 && (
                   <div className="absolute bottom-3 right-3 bg-zinc-50 bg-opacity-70 text-blue-900 px-3 py-1 rounded-lg text-sm">
                     +{car.bilder.length - 1} Bilder
                   </div>
