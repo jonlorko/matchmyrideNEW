@@ -1310,14 +1310,14 @@ if (view === 'register') {
             {swipeDirection === 'right' && (
               <div className="absolute inset-0 bg-green-500/20 flex items-center justify-center z-10 pointer-events-none">
                 <div className="bg-green-500 text-white px-8 py-4 rounded-2xl text-2xl font-bold rotate-12 border-4 border-white shadow-2xl">
-                  ❤️ ANFRAGE
+                  ANFRAGE
                 </div>
               </div>
             )}
             {swipeDirection === 'left' && (
               <div className="absolute inset-0 bg-red-500/20 flex items-center justify-center z-10 pointer-events-none">
                 <div className="bg-red-500 text-white px-8 py-4 rounded-2xl text-2xl font-bold -rotate-12 border-4 border-white shadow-2xl">
-                  ❌ SKIP
+                  SKIP
                 </div>
               </div>
             )}
