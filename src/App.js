@@ -845,7 +845,7 @@ if (view === 'register') {
             <div className="text-center mb-6">
               {profileForm.profilbild ? (
                 <div className="relative inline-block">
-                  <img src={profileForm.profilbild} alt="Profilbild" className="w-28 h-28 rounded-xl mx-auto mb-3 object-cover border-2 border-zinc-200" />
+                  <img src={profileForm.profilbild} alt={"Profilbild" className="w-28 h-28 rounded-xl mx-auto mb-3 object-cover border-2 border-zinc-200" />
                   <button 
                     onClick={() => setProfileForm({...profileForm, profilbild: ''})}
                     className="absolute -top-2 -right-2 bg-white border border-zinc-300 text-red-500 rounded-lg p-1.5 hover:bg-red-50 transition shadow-sm"
@@ -1157,7 +1157,7 @@ if (view === 'register') {
               <div className="grid grid-cols-3 gap-3 mb-3">
                 {carForm.bilder.map((img, index) => (
                   <div key={index} className="relative">
-<img src={img} alt={`Auto ${index + 1}`} className="w-full h-32 object-cover rounded-lg" />                    <button 
+<img src={img} alt={{{`Auto ${index + 1}`} className="w-full h-32 object-cover rounded-lg" />                    <button 
                       onClick={() => setCarForm({...carForm, bilder: carForm.bilder.filter((_, i) => i !== index)})}
                       className="absolute top-1 right-1 bg-white border-2 border-red-200 text-blue-900 rounded-lg p-1 hover:bg-red-600"
                     >
@@ -1332,7 +1332,7 @@ if (view === 'register') {
                   setCurrentImageIndex(0);
                 }}
               >
-                <img src={car.bilder[0]} alt={`${car.marke} ${car.modell}`} className="w-full h-full object-cover" />
+                <img src={car.bilder[0]} alt={{{`${car.marke} ${car.modell}`} className="w-full h-full object-cover" />
                 {car.bilder.length > 1 && (
                   <div className="absolute bottom-3 right-3 bg-zinc-50 bg-opacity-70 text-blue-900 px-3 py-1 rounded-lg text-sm">
                     +{car.bilder.length - 1} Bilder
@@ -1949,7 +1949,7 @@ if (view === 'register') {
                   <div className="relative">
                     <img 
                       src={selectedCarForDetail.bilder[currentImageIndex]} 
-                      alt={`${selectedCarForDetail.marke} ${selectedCarForDetail.modell}`} 
+                      alt={{{`${selectedCarForDetail.marke} ${selectedCarForDetail.modell}`} 
                       className="w-full h-64 md:h-96 object-cover"
                     />
                     
