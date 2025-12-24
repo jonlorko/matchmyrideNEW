@@ -1292,8 +1292,7 @@ if (view === 'register') {
           <div 
             className="bg-white rounded-xl border border-zinc-200 w-full max-w-md overflow-hidden shadow-2xl relative"
             style={{
-              transform: `translateX(${swipeCurrentX}px) rotate(${swipeCurrentX * 0.03}deg)`,
-              transition: isSwiping ? 'none' : 'transform 0.3s ease-out',
+transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03) + 'deg)',              transition: isSwiping ? 'none' : 'transform 0.3s ease-out',
               cursor: isSwiping ? 'grabbing' : 'grab',
               userSelect: 'none',
               touchAction: 'pan-y'
