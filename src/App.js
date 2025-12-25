@@ -1426,22 +1426,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
 
         {showFilterModal && (
           <>
-            <style dangerouslySetInnerHTML={{__html: `
-              .custom-scrollbar::-webkit-scrollbar {
-                width: 16px;
-              }
-              .custom-scrollbar::-webkit-scrollbar-track {
-                background: #f1f5f9;
-              }
-              .custom-scrollbar::-webkit-scrollbar-thumb {
-                background: #9333ea;
-                border-radius: 8px;
-                border: 3px solid #f1f5f9;
-              }
-              .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                background: #7c3aed;
-              }
-            `}} />
+            <style dangerouslySetInnerHTML={{__html: ".custom-scrollbar::-webkit-scrollbar { width: 16px; } .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; } .custom-scrollbar::-webkit-scrollbar-thumb { background: #9333ea; border-radius: 8px; border: 3px solid #f1f5f9; } .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #7c3aed; }"}} />
           <div className="fixed inset-0 bg-zinc-50 bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-lg w-full max-w-2xl flex flex-col" style={{maxHeight: '90vh'}}>
               <div className="p-6 border-b flex-shrink-0">
