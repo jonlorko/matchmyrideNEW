@@ -75,7 +75,7 @@ const App = () => {
       'Tempomat',
       'Adaptive Geschwindigkeitsregelung',
       'Einparkhilfe',
-      'RÃ¼ckfahrkamera',
+      'Rückfahrkamera',
       '360-Grad-Kamera',
       'Park-Assistent',
       'Start/Stopp-Automatik',
@@ -94,7 +94,7 @@ const App = () => {
       'Spurhalteassistent',
       'Totwinkel-Assistent',
       'Verkehrszeichenerkennung',
-      'MÃ¼digkeitswarner',
+      'Müdigkeitswarner',
       'Nachtsicht-Assistent',
       'Kurvenlicht',
       'LED-Scheinwerfer',
@@ -127,7 +127,7 @@ const App = () => {
       'Panoramadach',
       'Schiebedach',
       'Glasschiebedach',
-      'AnhÃ¤ngerkupplung',
+      'Anhängerkupplung',
       'Dachreling',
       'Sportpaket',
       'Sportfahrwerk',
@@ -158,12 +158,12 @@ const App = () => {
   // Standard-Autofarben
   const standardFarben = [
     'Schwarz',
-    'WeiÃŸ', 
+    'Weiß', 
     'Grau',
     'Silber',
     'Blau',
     'Rot',
-    'GrÃ¼n',
+    'Grün',
     'Braun',
     'Beige',
     'Orange',
@@ -200,7 +200,7 @@ const App = () => {
     
     // Check file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      alert('Bild ist zu groÃŸ! Maximal 5MB erlaubt.');
+      alert('Bild ist zu groß! Maximal 5MB erlaubt.');
       return;
     }
     
@@ -220,13 +220,13 @@ const App = () => {
   useEffect(() => {
     const init = async () => {
       const demoUsers = [
-        { id: 'buyer1', email: 'kaeufer@demo.de', password: 'demo', vorname: 'Max', name: 'Mustermann', geburtsdatum: '1990-05-15', strasse: 'MusterstraÃŸe 123', plz: '10115', ort: 'Berlin', telefon: '+49 123 456789', profilbild: '' },
-        { id: 'seller1', email: 'verkaeufer@demo.de', password: 'demo', vorname: 'Auto', name: 'Dealer', geburtsdatum: '1985-03-20', strasse: 'HÃ¤ndlerweg 1', plz: '80331', ort: 'MÃ¼nchen', telefon: '+49 987 654321', profilbild: '' }
+        { id: 'buyer1', email: 'kaeufer@demo.de', password: 'demo', vorname: 'Max', name: 'Mustermann', geburtsdatum: '1990-05-15', strasse: 'Musterstraße 123', plz: '10115', ort: 'Berlin', telefon: '+49 123 456789', profilbild: '' },
+        { id: 'seller1', email: 'verkaeufer@demo.de', password: 'demo', vorname: 'Auto', name: 'Dealer', geburtsdatum: '1985-03-20', strasse: 'Händlerweg 1', plz: '80331', ort: 'München', telefon: '+49 987 654321', profilbild: '' }
       ];
       const demoCars = [
-        { id: '1', sellerId: 'seller1', marke: 'BMW', modell: '3er', karosserie: 'Limousine', zustand: 'Gebraucht', verkaeuferTyp: 'HÃ¤ndler', sitzplaetze: 5, tueren: 4, baujahr: 2020, preis: 35000, kraftstoffart: 'Benzin', km: 45000, farbe: 'Schwarz', beschreibung: 'Top Zustand', getriebe: 'Automatik', ps: 184, standort: 'MÃ¼nchen', ausstattung: ['Allrad', 'Apple CarPlay', 'Alufelgen'], bilder: [] },
-        { id: '2', sellerId: 'seller1', marke: 'Mercedes', modell: 'C-Klasse', karosserie: 'Limousine', zustand: 'Gebraucht', verkaeuferTyp: 'HÃ¤ndler', sitzplaetze: 5, tueren: 4, baujahr: 2019, preis: 32000, kraftstoffart: 'Diesel', km: 60000, farbe: 'Silber', beschreibung: 'Gepflegt', getriebe: 'Automatik', ps: 194, standort: 'Hamburg', ausstattung: ['Klimaautomatik', 'Navigationssystem'], bilder: [] },
-        { id: '3', sellerId: 'seller1', marke: 'Audi', modell: 'A4', karosserie: 'Kombi', zustand: 'Jahreswagen', verkaeuferTyp: 'Privat', sitzplaetze: 5, tueren: 5, baujahr: 2021, preis: 38000, kraftstoffart: 'Hybrid', km: 25000, farbe: 'WeiÃŸ', beschreibung: 'Neuwertig', getriebe: 'Automatik', ps: 204, standort: 'Berlin', ausstattung: ['8fach bereift', 'LED-Scheinwerfer', 'Panoramadach'], bilder: [] }
+        { id: '1', sellerId: 'seller1', marke: 'BMW', modell: '3er', karosserie: 'Limousine', zustand: 'Gebraucht', verkaeuferTyp: 'Händler', sitzplaetze: 5, tueren: 4, baujahr: 2020, preis: 35000, kraftstoffart: 'Benzin', km: 45000, farbe: 'Schwarz', beschreibung: 'Top Zustand', getriebe: 'Automatik', ps: 184, standort: 'München', ausstattung: ['Allrad', 'Apple CarPlay', 'Alufelgen'], bilder: [] },
+        { id: '2', sellerId: 'seller1', marke: 'Mercedes', modell: 'C-Klasse', karosserie: 'Limousine', zustand: 'Gebraucht', verkaeuferTyp: 'Händler', sitzplaetze: 5, tueren: 4, baujahr: 2019, preis: 32000, kraftstoffart: 'Diesel', km: 60000, farbe: 'Silber', beschreibung: 'Gepflegt', getriebe: 'Automatik', ps: 194, standort: 'Hamburg', ausstattung: ['Klimaautomatik', 'Navigationssystem'], bilder: [] },
+        { id: '3', sellerId: 'seller1', marke: 'Audi', modell: 'A4', karosserie: 'Kombi', zustand: 'Jahreswagen', verkaeuferTyp: 'Privat', sitzplaetze: 5, tueren: 5, baujahr: 2021, preis: 38000, kraftstoffart: 'Hybrid', km: 25000, farbe: 'Weiß', beschreibung: 'Neuwertig', getriebe: 'Automatik', ps: 204, standort: 'Berlin', ausstattung: ['8fach bereift', 'LED-Scheinwerfer', 'Panoramadach'], bilder: [] }
       ];
       
       try {
@@ -408,7 +408,7 @@ const App = () => {
     setCurrentCarIndex(p => p + 1);
   };
 
-  // Touch Handlers fÃ¼r Swipe (Mobile)
+  // Touch Handlers für Swipe (Mobile)
   const handleTouchStart = (e) => {
     setSwipeStartX(e.touches[0].clientX);
     setIsSwiping(true);
@@ -442,7 +442,7 @@ const App = () => {
     setSwipeStartX(0);
   };
 
-  // Mouse Handlers fÃ¼r Swipe (Desktop)
+  // Mouse Handlers für Swipe (Desktop)
   const handleMouseDown = (e) => {
     setSwipeStartX(e.clientX);
     setIsSwiping(true);
@@ -635,11 +635,11 @@ const App = () => {
       return {
         rating: 'unknown',
         label: 'Preis wird analysiert',
-        icon: 'â„¹ï¸',
+        icon: 'ℹ️',
         color: 'text-gray-600',
         bgColor: 'bg-gray-50',
         borderColor: 'border-gray-200',
-        message: 'Nicht genÃ¼gend Daten',
+        message: 'Nicht genügend Daten',
         estimatedPrice: car?.preis || 0
       };
     }
@@ -658,26 +658,26 @@ const App = () => {
 
     const basePrice = brandBasePrice[car.marke] || 25000;
     
-    // Faktor fÃ¼r Baujahr (neuere Autos teurer)
+    // Faktor für Baujahr (neuere Autos teurer)
     const currentYear = 2025;
     const age = currentYear - car.baujahr;
     const yearFactor = Math.max(0.4, 1 - (age * 0.08)); // Pro Jahr ca. 8% Wertverlust
     
-    // Faktor fÃ¼r Kilometerstand (weniger km = teurer)
+    // Faktor für Kilometerstand (weniger km = teurer)
     const kmFactor = car.km < 30000 ? 1.2 : 
                      car.km < 60000 ? 1.0 : 
                      car.km < 100000 ? 0.85 : 
                      car.km < 150000 ? 0.7 : 0.55;
     
-    // Faktor fÃ¼r PS (mehr Leistung = teurer)
+    // Faktor für PS (mehr Leistung = teurer)
     const psFactor = car.ps > 250 ? 1.3 :
                      car.ps > 180 ? 1.15 :
                      car.ps > 120 ? 1.0 : 0.9;
     
-    // Faktor fÃ¼r Zustand
+    // Faktor für Zustand
     const conditionFactor = car.zustand === 'Neu' ? 1.5 :
                            car.zustand === 'Jahreswagen' ? 1.25 :
-                           car.zustand === 'VorfÃ¼hrwagen' ? 1.2 :
+                           car.zustand === 'Vorführwagen' ? 1.2 :
                            car.zustand === 'Gebraucht' ? 1.0 : 0.8;
     
     // Geschaetzter Marktwert
@@ -691,7 +691,7 @@ const App = () => {
       return {
         rating: 'excellent',
         label: 'Sehr guter Preis!',
-        icon: 'ðŸŽ‰',
+        icon: '🎉',
         color: 'text-green-600',
         bgColor: 'bg-green-50',
         borderColor: 'border-green-200',
@@ -702,7 +702,7 @@ const App = () => {
       return {
         rating: 'good',
         label: 'Guter Preis',
-        icon: 'âœ…',
+        icon: '✅',
         color: 'text-green-600',
         bgColor: 'bg-green-50',
         borderColor: 'border-green-200',
@@ -713,18 +713,18 @@ const App = () => {
       return {
         rating: 'fair',
         label: 'Fairer Preis',
-        icon: 'âœ“',
+        icon: '✓',
         color: 'text-blue-600',
         bgColor: 'bg-blue-50',
         borderColor: 'border-blue-200',
-        message: 'MarktÃ¼blicher Preis',
+        message: 'Marktüblicher Preis',
         estimatedPrice: Math.round(estimatedPrice)
       };
     } else if (priceDiff < 15) {
       return {
         rating: 'expensive',
         label: 'Etwas teuer',
-        icon: 'âš ï¸',
+        icon: '⚠️',
         color: 'text-orange-600',
         bgColor: 'bg-orange-50',
         borderColor: 'border-orange-200',
@@ -735,7 +735,7 @@ const App = () => {
       return {
         rating: 'overpriced',
         label: 'Zu teuer',
-        icon: 'âŒ',
+        icon: '❌',
         color: 'text-red-600',
         bgColor: 'bg-red-50',
         borderColor: 'border-red-200',
@@ -785,7 +785,7 @@ const App = () => {
 
     setShowRatingModal(false);
     setRatingForm({ sellerId: '', stars: 5, comment: '' });
-    alert('Bewertung abgegeben! Danke fÃ¼r dein Feedback.');
+    alert('Bewertung abgegeben! Danke für dein Feedback.');
   };
 
   const getFilteredCars = () => {
@@ -897,7 +897,7 @@ if (view === 'register') {
             
             <div>
               <label className="block text-sm font-medium mb-2">Adresse</label>
-              <input type="text" placeholder="StraÃŸe & Hausnummer" value={profileForm.strasse} onChange={e => setProfileForm({...profileForm, strasse: e.target.value})} className="w-full px-4 py-3 border rounded-lg mb-3" />
+              <input type="text" placeholder="Straße & Hausnummer" value={profileForm.strasse} onChange={e => setProfileForm({...profileForm, strasse: e.target.value})} className="w-full px-4 py-3 border rounded-lg mb-3" />
               <div className="grid grid-cols-3 gap-3">
                 <input type="text" placeholder="PLZ" value={profileForm.plz} onChange={e => setProfileForm({...profileForm, plz: e.target.value})} className="w-full px-4 py-3 border rounded-lg" />
                 <input type="text" placeholder="Ort" value={profileForm.ort} onChange={e => setProfileForm({...profileForm, ort: e.target.value})} className="col-span-2 w-full px-4 py-3 border rounded-lg" />
@@ -923,7 +923,7 @@ if (view === 'register') {
           <button onClick={() => setView('dashboard')}; className="p-2 hover:bg-zinc-100 rounded-lg transition">
             <ChevronLeft size={24} className="text-zinc-600" strokeWidth={1.5} />
           </button>
-          <h1 className="text-xl font-light text-blue-900 tracking-wide">Auto hinzufÃ¼gen</h1>
+          <h1 className="text-xl font-light text-blue-900 tracking-wide">Auto hinzufügen</h1>
         </header>
         <div className="p-6">
           <div className="bg-white rounded-xl border border-zinc-200 p-6 space-y-6 shadow-sm">
@@ -959,7 +959,7 @@ if (view === 'register') {
                 <div>
                   <label className="block text-sm font-medium mb-2">Farbe</label>
                   <select value={carForm.farbe} onChange={e => setCarForm({...carForm, farbe: e.target.value})} className="w-full px-4 py-3 border rounded-lg">
-                    <option value="">Farbe wÃ¤hlen</option>
+                    <option value="">Farbe wählen</option>
                     {standardFarben.map(farbe => (
                       <option key={farbe} value={farbe}>{farbe}</option>
                     ))}
@@ -968,18 +968,18 @@ if (view === 'register') {
                 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-sm font-medium mb-2">SitzplÃ¤tze</label>
+                    <label className="block text-sm font-medium mb-2">Sitzplätze</label>
                     <input type="number" placeholder="5" value={carForm.sitzplaetze} onChange={e => setCarForm({...carForm, sitzplaetze: parseInt(e.target.value)})} className="w-full px-4 py-3 border rounded-lg" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">TÃ¼ren</label>
+                    <label className="block text-sm font-medium mb-2">Türen</label>
                     <input type="number" placeholder="4" value={carForm.tueren} onChange={e => setCarForm({...carForm, tueren: parseInt(e.target.value)})} className="w-full px-4 py-3 border rounded-lg" />
                   </div>
                 </div>
               </div>
             </div>
             
-            {/* Zustand & VerkÃ¤ufer */}
+            {/* Zustand & Verkäufer */}
             <div className="border-b pb-4">
               <h3 className="text-lg font-semibold mb-4 text-blue-900">Zustand & Verkauf</h3>
               
@@ -990,16 +990,16 @@ if (view === 'register') {
                     <option value="Neu">Neu</option>
                     <option value="Gebraucht">Gebraucht</option>
                     <option value="Jahreswagen">Jahreswagen</option>
-                    <option value="VorfÃ¼hrwagen">VorfÃ¼hrwagen</option>
+                    <option value="Vorführwagen">Vorführwagen</option>
                     <option value="Oldtimer">Oldtimer</option>
                   </select>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium mb-2">VerkÃ¤ufertyp</label>
+                  <label className="block text-sm font-medium mb-2">Verkäufertyp</label>
                   <select value={carForm.verkaeuferTyp} onChange={e => setCarForm({...carForm, verkaeuferTyp: e.target.value})} className="w-full px-4 py-3 border rounded-lg">
                     <option value="Privat">Privat</option>
-                    <option value="HÃ¤ndler">HÃ¤ndler</option>
+                    <option value="Händler">Händler</option>
                   </select>
                 </div>
                 
@@ -1097,7 +1097,7 @@ if (view === 'register') {
                     onClick={() => setEquipmentSearch('')}
                     className="mt-2 text-sm text-gray-600 hover:text-gray-900"
                   >
-                    âœ• Suche zurÃ¼cksetzen
+                    ✕ Suche zurücksetzen
                   </button>
                 )}
               </div>
@@ -1140,13 +1140,13 @@ if (view === 'register') {
                   features.filter(f => f.toLowerCase().includes(equipmentSearch.toLowerCase())).length === 0
                 ) && (
                   <div className="text-center text-gray-500 py-8">
-                    Keine Ausstattung gefunden fÃ¼r "{equipmentSearch}"
+                    Keine Ausstattung gefunden für "{equipmentSearch}"
                   </div>
                 )}
               </div>
               {carForm.ausstattung.length > 0 && (
                 <div className="mt-2 text-sm text-blue-600 font-medium">
-                  {carForm.ausstattung.length} Merkmal{carForm.ausstattung.length !== 1 ? 'e' : ''} ausgewÃ¤hlt
+                  {carForm.ausstattung.length} Merkmal{carForm.ausstattung.length !== 1 ? 'e' : ''} ausgewählt
                 </div>
               )}
             </div>
@@ -1183,13 +1183,13 @@ if (view === 'register') {
                     }}
                   />
                   <Plus size={32} className="text-gray-400 mb-2" />
-                  <span className="text-sm text-gray-600">Bild hinzufÃ¼gen</span>
+                  <span className="text-sm text-gray-600">Bild hinzufügen</span>
                   <span className="text-xs text-gray-400 mt-1">{carForm.bilder.length}/5 hochgeladen</span>
                 </label>
               )}
             </div>
             
-            <button onClick={() => handleAddCar(carForm)} className="w-full bg-orange-500 text-white py-4 rounded-lg font-normal mt-6 hover:bg-orange-600 transition tracking-wide">Auto hinzufÃ¼gen</button>
+            <button onClick={() => handleAddCar(carForm)} className="w-full bg-orange-500 text-white py-4 rounded-lg font-normal mt-6 hover:bg-orange-600 transition tracking-wide">Auto hinzufügen</button>
             <p className="text-xs text-gray-500 text-center">* Pflichtfelder</p>
           </div>
         </div>
@@ -1225,7 +1225,7 @@ if (view === 'register') {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-normal text-blue-900">{car.marke} {car.modell}</h3>
-                  <p className="text-sm text-zinc-600 font-light">{car.preis.toLocaleString()} EUR â€¢ {car.km.toLocaleString()} km</p>
+                  <p className="text-sm text-zinc-600 font-light">{car.preis.toLocaleString()} EUR • {car.km.toLocaleString()} km</p>
                 </div>
                 <Star size={20} className="text-orange-500 fill-orange-500" strokeWidth={1.5} />
               </div>
@@ -1247,7 +1247,7 @@ if (view === 'register') {
               <button onClick={() => setView('favorites')} className="p-2"><Star size={20} /></button>
               <button onClick={() => setShowFilterModal(true)} className="p-2"><Filter size={20} /></button>
               <button onClick={() => setView('profile')} className="p-2"><User size={20} /></button>
-              <button onClick={() => { setCurrentRole('verkaeufer'); setView('dashboard'); }} className="text-xs bg-gray-100 px-2 py-1 rounded">VerkÃ¤ufer</button>
+              <button onClick={() => { setCurrentRole('verkaeufer'); setView('dashboard'); }} className="text-xs bg-gray-100 px-2 py-1 rounded">Verkäufer</button>
               <button onClick={() => setView('matches')} className="p-2"><MessageCircle size={20} /></button>
               <button onClick={handleLogout} className="text-xs text-red-600">Logout</button>
             </div>
@@ -1258,8 +1258,8 @@ if (view === 'register') {
                 <Car size={40} className="text-gray-400" />
               </div>
               <h2 className="text-2xl font-semibold text-gray-900 mb-2">Keine weiteren Autos</h2>
-              <p className="text-gray-600 mb-6">Probier andere Filter oder komm spÃ¤ter wieder</p>
-              <button onClick={() => { resetFilters(); setCurrentCarIndex(0); }} className="bg-blue-600 text-blue-900 px-6 py-3 rounded-lg font-semibold">Filter zurÃ¼cksetzen</button>
+              <p className="text-gray-600 mb-6">Probier andere Filter oder komm später wieder</p>
+              <button onClick={() => { resetFilters(); setCurrentCarIndex(0); }} className="bg-blue-600 text-blue-900 px-6 py-3 rounded-lg font-semibold">Filter zurücksetzen</button>
             </div>
           </div>
         </div>
@@ -1282,7 +1282,7 @@ if (view === 'register') {
               <User size={20} className="text-zinc-600" strokeWidth={1.5} />
             </button>
             <button onClick={() => { setCurrentRole('verkaeufer'); setView('dashboard'); }} className="text-sm bg-zinc-100 hover:bg-zinc-200 px-3 py-1 rounded-lg text-zinc-700 transition border border-zinc-300 font-light">
-              VerkÃ¤ufer
+              Verkäufer
             </button>
             <button onClick={() => setView('matches')} className="p-2.5 hover:bg-zinc-100 rounded-lg transition">
               <MessageCircle size={20} className="text-zinc-600" strokeWidth={1.5} />
@@ -1338,7 +1338,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                   </div>
                 )}
                 <div className="absolute top-3 right-3 bg-white bg-opacity-90 text-gray-700 px-3 py-1 rounded-lg text-sm font-medium">
-                  Tippen fÃ¼r Details
+                  Tippen für Details
                 </div>
               </div>
             ) : (
@@ -1362,11 +1362,11 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
               {(() => {
                 const priceAnalysis = analyzePriceQuality(car);
                 return (
-                  <div className={`${priceAnalysis.bgColor} ${priceAnalysis.borderColor} border-2 rounded-lg p-3 mb-4`}>
+                  <div className={priceAnalysis.bgColor + ' ' + priceAnalysis.borderColor + ' border-2 rounded-lg p-3 mb-4'}>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">{priceAnalysis.icon}</span>
                       <div className="flex-1">
-                        <p className={`font-bold ${priceAnalysis.color}`}>{priceAnalysis.label}</p>
+                        <p className={'font-bold ' + priceAnalysis.color}>{priceAnalysis.label}</p>
                         <p className="text-sm text-gray-600">{priceAnalysis.message}</p>
                       </div>
                     </div>
@@ -1385,7 +1385,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                 <div className="flex items-center gap-2"><span className="font-semibold">Leistung:</span> {car.ps} PS</div>
                 <div className="flex items-center gap-2"><span className="font-semibold">Karosserie:</span> {car.karosserie}</div>
                 <div className="flex items-center gap-2"><span className="font-semibold">Zustand:</span> {car.zustand}</div>
-                <div className="flex items-center gap-2"><span className="font-semibold">VerkÃ¤ufer:</span> {car.verkaeuferTyp}</div>
+                <div className="flex items-center gap-2"><span className="font-semibold">Verkäufer:</span> {car.verkaeuferTyp}</div>
                 <div className="flex items-center gap-2"><span className="font-semibold">Standort:</span> {car.standort}</div>
                 <div className="flex items-center gap-2"><span className="font-semibold">Farbe:</span> {car.farbe}</div>
               </div>
@@ -1566,7 +1566,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                     <option value="">Alle</option>
                     <option value="Limousine">Limousine</option>
                     <option value="Kombi">Kombi</option>
-                    <option value="SUV">SUV / GelÃ¤ndewagen</option>
+                    <option value="SUV">SUV / Geländewagen</option>
                     <option value="Cabrio">Cabrio</option>
                     <option value="Coupe">Coupe</option>
                     <option value="Kleinwagen">Kleinwagen</option>
@@ -1678,25 +1678,25 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                     <option value="Neu">Neu</option>
                     <option value="Jahreswagen">Jahreswagen</option>
                     <option value="Gebraucht">Gebraucht</option>
-                    <option value="VorfÃ¼hrwagen">VorfÃ¼hrwagen</option>
+                    <option value="Vorführwagen">Vorführwagen</option>
                     <option value="Oldtimer">Oldtimer</option>
                   </select>
                 </div>
 
-                {/* 8. VerkÃ¤ufertyp */}
+                {/* 8. Verkäufertyp */}
                 <div>
-                  <label className="block text-sm font-medium mb-2">VerkÃ¤ufer</label>
+                  <label className="block text-sm font-medium mb-2">Verkäufer</label>
                   <select value={filters.verkaeuferTyp} onChange={e => setFilters({...filters, verkaeuferTyp: e.target.value})} className="w-full px-4 py-2 border rounded-lg">
                     <option value="">Alle</option>
-                    <option value="HÃ¤ndler">HÃ¤ndler</option>
+                    <option value="Händler">Händler</option>
                     <option value="Privat">Privat</option>
                   </select>
                 </div>
 
-                {/* 9. SitzplÃ¤tze & TÃ¼ren */}
+                {/* 9. Sitzplätze & Türen */}
                 <div className="flex gap-4">
                   <div className="flex-1">
-                    <label className="block text-sm font-medium mb-2">SitzplÃ¤tze</label>
+                    <label className="block text-sm font-medium mb-2">Sitzplätze</label>
                     <select value={filters.sitzplaetze} onChange={e => setFilters({...filters, sitzplaetze: e.target.value})} className="w-full px-4 py-2 border rounded-lg">
                       <option value="">Alle</option>
                       <option value="2">2</option>
@@ -1707,7 +1707,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                     </select>
                   </div>
                   <div className="flex-1">
-                    <label className="block text-sm font-medium mb-2">TÃ¼ren</label>
+                    <label className="block text-sm font-medium mb-2">Türen</label>
                     <select value={filters.tueren} onChange={e => setFilters({...filters, tueren: e.target.value})} className="w-full px-4 py-2 border rounded-lg">
                       <option value="">Alle</option>
                       <option value="2">2/3</option>
@@ -1744,7 +1744,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                         onClick={() => setEquipmentSearch('')}
                         className="mt-1 text-xs text-gray-600 hover:text-gray-900"
                       >
-                        âœ• Suche zurÃ¼cksetzen
+                        ✕ Suche zurücksetzen
                       </button>
                     )}
                   </div>
@@ -1787,13 +1787,13 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                       features.filter(f => f.toLowerCase().includes(equipmentSearch.toLowerCase())).length === 0
                     ) && (
                       <div className="text-center text-gray-500 py-8 text-sm">
-                        Keine Ausstattung gefunden fÃ¼r "{equipmentSearch}"
+                        Keine Ausstattung gefunden für "{equipmentSearch}"
                       </div>
                     )}
                   </div>
                   {filters.ausstattung.length > 0 && (
                     <div className="mt-2 text-sm text-blue-600 font-medium">
-                      {filters.ausstattung.length} Merkmal{filters.ausstattung.length !== 1 ? 'e' : ''} ausgewÃ¤hlt
+                      {filters.ausstattung.length} Merkmal{filters.ausstattung.length !== 1 ? 'e' : ''} ausgewählt
                     </div>
                   )}
                 </div>
@@ -1807,7 +1807,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                   <Bell size={18} /> Suche speichern
                 </button>
                 <div className="flex gap-3">
-                  <button onClick={() => { resetFilters(); setShowFilterModal(false); }} className="flex-1 bg-gray-200 py-3 rounded-lg font-semibold">ZurÃ¼cksetzen</button>
+                  <button onClick={() => { resetFilters(); setShowFilterModal(false); }} className="flex-1 bg-gray-200 py-3 rounded-lg font-semibold">Zurücksetzen</button>
                   <button onClick={() => { setCurrentCarIndex(0); setShowFilterModal(false); }} className="flex-1 bg-blue-600 text-blue-900 py-3 rounded-lg font-semibold">Anwenden</button>
                 </div>
               </div>
@@ -1821,7 +1821,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
           <div className="fixed inset-0 bg-zinc-50 bg-opacity-50 flex items-center justify-center p-4" style={{zIndex: 10000}}>
             <div className="bg-white rounded-lg p-6 w-full max-w-md">
               <h3 className="text-xl font-bold mb-4">Suche speichern</h3>
-              <p className="text-sm text-gray-600 mb-4">Gib deiner Suche einen Namen, um sie spÃ¤ter schnell wieder zu laden.</p>
+              <p className="text-sm text-gray-600 mb-4">Gib deiner Suche einen Namen, um sie später schnell wieder zu laden.</p>
               <input 
                 type="text" 
                 placeholder="z.B. BMW unter 30.000EUR" 
@@ -1856,7 +1856,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
         {showRatingModal && (
           <div className="fixed inset-0 bg-zinc-50 bg-opacity-50 flex items-center justify-center p-4" style={{zIndex: 10001}}>
             <div className="bg-white rounded-lg p-6 w-full max-w-md">
-              <h3 className="text-xl font-bold mb-4">VerkÃ¤ufer bewerten</h3>
+              <h3 className="text-xl font-bold mb-4">Verkäufer bewerten</h3>
               
               {/* Star Rating */}
               <div className="mb-4">
@@ -1888,7 +1888,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
               <div className="mb-4">
                 <label className="block text-sm font-medium mb-2">Deine Erfahrung</label>
                 <textarea
-                  placeholder="Beschreibe deine Erfahrung mit diesem VerkÃ¤ufer..."
+                  placeholder="Beschreibe deine Erfahrung mit diesem Verkäufer..."
                   value={ratingForm.comment}
                   onChange={e => setRatingForm({...ratingForm, comment: e.target.value})}
                   className="w-full px-4 py-3 border rounded-lg"
@@ -1979,9 +1979,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                             <button
                               key={idx}
                               onClick={() => setCurrentImageIndex(idx)}
-                              className={`w-2 h-2 rounded-lg transition ${
-                                idx === currentImageIndex ? 'bg-white w-6' : 'bg-white bg-opacity-50'
-                              }`}
+                              className={'w-2 h-2 rounded-lg transition ' + (idx === currentImageIndex ? 'bg-white w-6' : 'bg-white bg-opacity-50')}
                             />
                           ))}
                         </div>
@@ -2005,11 +2003,11 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                     {(() => {
                       const priceAnalysis = analyzePriceQuality(selectedCarForDetail);
                       return (
-                        <div className={`${priceAnalysis.bgColor} ${priceAnalysis.borderColor} border-2 rounded-lg p-4`}>
+                        <div className={priceAnalysis.bgColor + ' ' + priceAnalysis.borderColor + ' border-2 rounded-lg p-4'}>
                           <div className="flex items-center gap-3">
                             <span className="text-3xl">{priceAnalysis.icon}</span>
                             <div className="flex-1">
-                              <p className={`font-bold text-lg ${priceAnalysis.color}`}>{priceAnalysis.label}</p>
+                              <p className={'font-bold text-lg ' + priceAnalysis.color}>{priceAnalysis.label}</p>
                               <p className="text-sm text-gray-700">{priceAnalysis.message}</p>
                               <p className="text-xs text-gray-500 mt-1">
                                 Geschaetzter Marktwert: ~{priceAnalysis.estimatedPrice.toLocaleString()} EUR
@@ -2062,11 +2060,11 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                         <span className="font-medium">{selectedCarForDetail.farbe}</span>
                       </div>
                       <div className="flex justify-between py-2 border-b border-zinc-200">
-                        <span className="text-gray-600">TÃ¼ren</span>
+                        <span className="text-gray-600">Türen</span>
                         <span className="font-medium">{selectedCarForDetail.tueren}</span>
                       </div>
                       <div className="flex justify-between py-2 border-b border-zinc-200">
-                        <span className="text-gray-600">SitzplÃ¤tze</span>
+                        <span className="text-gray-600">Sitzplätze</span>
                         <span className="font-medium">{selectedCarForDetail.sitzplaetze}</span>
                       </div>
                       <div className="flex justify-between py-2 border-b border-zinc-200">
@@ -2083,7 +2081,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                       <div className="flex flex-wrap gap-2">
                         {selectedCarForDetail.ausstattung.map(item => (
                           <span key={item} className="bg-purple-100 text-blue-700 px-3 py-2 rounded-lg text-sm font-medium">
-                            âœ“ {item}
+                            ✓ {item}
                           </span>
                         ))}
                       </div>
@@ -2100,7 +2098,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
 
                   {/* Seller Rating */}
                   <div className="border-t pt-6">
-                    <h4 className="font-semibold text-lg mb-3">VerkÃ¤ufer-Bewertungen</h4>
+                    <h4 className="font-semibold text-lg mb-3">Verkäufer-Bewertungen</h4>
                     {(() => {
                       const seller = users.find(u => u.id === selectedCarForDetail.sellerId);
                       const rating = getSellerRating(selectedCarForDetail.sellerId);
@@ -2169,7 +2167,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                                 }}
                                 className="w-full mt-4 bg-purple-100 text-blue-700 py-2 rounded-lg font-medium hover:bg-blue-200 transition"
                               >
-                                VerkÃ¤ufer bewerten
+                                Verkäufer bewerten
                               </button>
                             )}
                           </div>
@@ -2258,8 +2256,8 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                 <p className="text-zinc-500 font-light">Keine Nachrichten</p>
               </div>
             ) : selectedChat.messages.map(m => (
-              <div key={m.id} className={`flex ${m.senderId === currentUser.id ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-xs px-4 py-3 rounded-xl ${m.senderId === currentUser.id ? 'bg-orange-500 text-white' : 'bg-white border border-zinc-200'}`}>
+              <div key={m.id} className={'flex ' + (m.senderId === currentUser.id ? 'justify-end' : 'justify-start')}>
+                <div className={'max-w-xs px-4 py-3 rounded-xl ' + (m.senderId === currentUser.id ? 'bg-orange-500 text-white' : 'bg-white border border-zinc-200')}>
                   <p className="text-sm font-light">{m.text}</p>
                 </div>
               </div>
@@ -2311,7 +2309,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                   <h3 className="font-normal text-blue-900">{car && car.marke} {car && car.modell}</h3>
                   <p className="text-sm text-zinc-600 font-light">
                     {car && car.preis.toLocaleString()} EUR
-                    {partner && <span className="text-zinc-400"> â€¢ {partner.vorname} {partner.name}</span>}
+                    {partner && <span className="text-zinc-400"> • {partner.vorname} {partner.name}</span>}
                   </p>
                 </div>
                 <MessageCircle size={20} className="text-zinc-400" strokeWidth={1.5} />
@@ -2335,7 +2333,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
               <User size={20} className="text-zinc-600" strokeWidth={1.5} />
             </button>
             <button onClick={() => { setCurrentRole('kaeufer'); setView('swipe'); }} className="text-sm bg-zinc-100 hover:bg-zinc-200 px-3 py-1 rounded-lg text-zinc-700 transition border border-zinc-300 font-light">
-              KÃ¤ufer
+              Käufer
             </button>
             <button onClick={() => setView('matches')} className="p-2.5 hover:bg-zinc-100 rounded-lg transition">
               <MessageCircle size={20} className="text-zinc-600" strokeWidth={1.5} />
