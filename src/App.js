@@ -917,7 +917,7 @@ if (view === 'register') {
     return (
       <div className="min-h-screen bg-zinc-50">
         <header className="bg-white border-b border-zinc-200 px-6 py-4 flex items-center gap-4">
-          <button onClick={() => setView('dashboard')}; className="p-2 hover:bg-zinc-100 rounded-lg transition">
+          <button onClick={() => setView('dashboard')} className="p-2 hover:bg-zinc-100 rounded-lg transition">
             <ChevronLeft size={24} className="text-zinc-600" strokeWidth={1.5} />
           </button>
           <h1 className="text-xl font-light text-blue-900 tracking-wide">Auto hinzufügen</h1>
