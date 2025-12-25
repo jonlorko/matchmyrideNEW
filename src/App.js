@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Heart, X, MessageCircle, Car, Plus, Check, ChevronLeft, Send, User, Filter, Star, Bell, Trash2 } from 'lucide-react';
-```javascript
 import { LoginPage } from './components/auth/LoginPage';
 import { RegisterPage } from './components/auth/RegisterPage';
 import { Logo } from './components/shared/Logo';
-```
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -821,7 +819,6 @@ if (view === 'login') {
   );
 }
 
-  ```javascript
 if (view === 'register') {
   return (
     <RegisterPage 
