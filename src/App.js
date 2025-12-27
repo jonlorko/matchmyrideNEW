@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Heart, X, MessageCircle, Car, Plus, Check, ChevronLeft, Send, User, Filter, Star, Bell, Trash2 } from 'lucide-react';
+import { Heart, X, MessageCircle, Car, Plus, Check, ChevronLeft, Send, User, Filter, Star, Bell, Trash2, Edit } from 'lucide-react';
 import { LoginPage } from './components/auth/LoginPage';
 import { RegisterPage } from './components/auth/RegisterPage';
 import { Logo } from './components/shared/Logo';
@@ -31,6 +31,7 @@ const App = () => {
   const [showRatingModal, setShowRatingModal] = useState(false);
   const [ratingForm, setRatingForm] = useState({ sellerId: '', stars: 5, comment: '' });
   const [equipmentSearch, setEquipmentSearch] = useState('');
+  const [editingCarId, setEditingCarId] = useState(null);
   
   // Swipe States
   const [swipeStartX, setSwipeStartX] = useState(0);
@@ -519,19 +520,70 @@ const App = () => {
     setMessageText('');
   };
 
-  const handleAddCar = async (carData) => {
-    const newCar = { id: Date.now(), sellerId: currentUser.id, ...carData };
-    const updated = [...cars, newCar];
-    setCars(updated);
-    try { 
-      localStorage.setItem('cars', JSON.stringify(updated)); 
-    } catch (e) {
-      console.error('Error saving cars:', e);
-    }
-    setView('dashboard');
-    setCarForm({ marke: '', modell: '', karosserie: 'Limousine', zustand: 'Gebraucht', verkaeuferTyp: 'Privat', sitzplaetze: 5, tueren: 4, baujahr: 2020, preis: 20000, kraftstoffart: 'Benzin', km: 50000, farbe: '', beschreibung: '', getriebe: 'Schaltgetriebe', ps: 150, standort: '', ausstattung: [], bilder: [] });
-  };
-
+const handleEditCar = async (carData) => {
+  const updated = cars.map(c => 
+    c.id === editingCarId ? { ...c, ...carData } : c
+  );
+  setCars(updated);
+  try {
+    localStorage.setItem('cars', JSON.stringify(updated));
+  } catch (e) {
+    console.error('Error saving cars:', e);
+  }
+  setView('dashboard');
+  setEditingCarId(null);
+  setCarForm({ 
+    marke: '', 
+    modell: '', 
+    karosserie: 'Limousine',
+    zustand: 'Gebraucht',
+    verkaeuferTyp: 'Privat',
+    sitzplaetze: 5,
+    tueren: 4,
+    baujahr: 2020, 
+    preis: 20000, 
+    kraftstoffart: 'Benzin', 
+    km: 50000, 
+    farbe: '', 
+    beschreibung: '', 
+    getriebe: 'Schaltgetriebe', 
+    ps: 150, 
+    standort: '',
+    ausstattung: [],
+    bilder: []
+  });
+};
+const handleAddCar = async (carData) => {
+  const newCar = { id: Date.now(), sellerId: currentUser.id, ...carData };
+  const updated = [...cars, newCar];
+  setCars(updated);
+  try { 
+    localStorage.setItem('cars', JSON.stringify(updated)); 
+  } catch (e) {
+    console.error('Error saving cars:', e);
+  }
+  setView('dashboard');
+  setCarForm({ 
+    marke: '', 
+    modell: '', 
+    karosserie: 'Limousine',
+    zustand: 'Gebraucht',
+    verkaeuferTyp: 'Privat',
+    sitzplaetze: 5,
+    tueren: 4,
+    baujahr: 2020, 
+    preis: 20000, 
+    kraftstoffart: 'Benzin', 
+    km: 50000, 
+    farbe: '', 
+    beschreibung: '', 
+    getriebe: 'Schaltgetriebe', 
+    ps: 150, 
+    standort: '',
+    ausstattung: [],
+    bilder: []
+  });
+};
   const handleDeleteCar = async (carId) => {
     const updated = cars.filter(c => c.id !== carId);
     setCars(updated);
@@ -847,20 +899,44 @@ if (view === 'profile') {
   }
 
 if (view === 'add-car') {
-    return (
-      <AddCarPage
-        carForm={carForm}
-        setCarForm={setCarForm}
-        onBack={() => setView('dashboard')}
-        onSave={handleAddCar}
-        onImageUpload={handleImageUpload}
-        standardFarben={standardFarben}
-        ausstattungsmerkmale={ausstattungsmerkmale}
-        equipmentSearch={equipmentSearch}           
-        setEquipmentSearch={setEquipmentSearch}     
-      />
-    );
-  }
+  return (
+    <AddCarPage
+      carForm={carForm}
+      setCarForm={setCarForm}
+      onBack={() => {
+        setView('dashboard');
+        setEditingCarId(null);
+        setCarForm({ 
+          marke: '', 
+          modell: '', 
+          karosserie: 'Limousine',
+          zustand: 'Gebraucht',
+          verkaeuferTyp: 'Privat',
+          sitzplaetze: 5,
+          tueren: 4,
+          baujahr: 2020, 
+          preis: 20000, 
+          kraftstoffart: 'Benzin', 
+          km: 50000, 
+          farbe: '', 
+          beschreibung: '', 
+          getriebe: 'Schaltgetriebe', 
+          ps: 150, 
+          standort: '',
+          ausstattung: [],
+          bilder: []
+        });
+      }}
+      onSave={editingCarId ? handleEditCar : handleAddCar}
+      onImageUpload={handleImageUpload}
+      standardFarben={standardFarben}
+      ausstattungsmerkmale={ausstattungsmerkmale}
+      equipmentSearch={equipmentSearch}
+      setEquipmentSearch={setEquipmentSearch}
+      isEditMode={!!editingCarId}
+    />
+  );
+}
 
  if (view === 'favorites') {
     return (
@@ -1659,6 +1735,35 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                   <h3 className="font-normal text-blue-900">{c.marke} {c.modell}</h3>
                   <p className="text-sm text-zinc-600 font-light">{c.preis.toLocaleString()} EUR</p>
                 </div>
+                <button 
+  onClick={() => {
+    setEditingCarId(c.id);
+    setCarForm({
+      marke: c.marke,
+      modell: c.modell,
+      karosserie: c.karosserie,
+      zustand: c.zustand,
+      verkaeuferTyp: c.verkaeuferTyp,
+      sitzplaetze: c.sitzplaetze,
+      tueren: c.tueren,
+      baujahr: c.baujahr,
+      preis: c.preis,
+      kraftstoffart: c.kraftstoffart,
+      km: c.km,
+      farbe: c.farbe,
+      beschreibung: c.beschreibung,
+      getriebe: c.getriebe,
+      ps: c.ps,
+      standort: c.standort,
+      ausstattung: c.ausstattung || [],
+      bilder: c.bilder || []
+    });
+    setView('add-car');
+  }} 
+  className="text-blue-500 hover:text-blue-600 p-2 hover:bg-blue-50 rounded-lg transition"
+>
+  <Edit size={20} strokeWidth={1.5} />
+</button>
                 <button onClick={() => handleDeleteCar(c.id)} className="text-red-500 hover:text-red-600 p-2 hover:bg-red-50 rounded-lg transition">
                   <Trash2 size={20} strokeWidth={1.5} />
                 </button>

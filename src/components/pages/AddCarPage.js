@@ -10,7 +10,8 @@ export const AddCarPage = ({
   standardFarben,
   ausstattungsmerkmale,
   equipmentSearch,           
-  setEquipmentSearch         
+  setEquipmentSearch,
+  isEditMode         
 }) => {
   return (
           <div className="min-h-screen bg-zinc-50">
@@ -18,7 +19,9 @@ export const AddCarPage = ({
               <button onClick={onBack} className="p-2 hover:bg-zinc-100 rounded-lg transition">
                 <ChevronLeft size={24} className="text-zinc-600" strokeWidth={1.5} />
               </button>
-              <h1 className="text-xl font-light text-blue-900 tracking-wide">Auto hinzufügen</h1>
+              <h1 className="text-xl font-light text-blue-900 tracking-wide">
+              {isEditMode ? 'Auto bearbeiten' : 'Auto hinzufügen'}
+            </h1>
             </header>
             <div className="p-6">
               <div className="bg-white rounded-xl border border-zinc-200 p-6 space-y-6 shadow-sm">
@@ -284,7 +287,9 @@ export const AddCarPage = ({
                   )}
                 </div>
                 
-                <button onClick={() => onSave(carForm)} className="w-full bg-orange-500 text-white py-4 rounded-lg font-normal mt-6 hover:bg-orange-600 transition tracking-wide">Auto hinzufügen</button>
+                <button onClick={() => onSave(carForm)} className="w-full bg-orange-500 text-white py-4 rounded-lg font-normal mt-6 hover:bg-orange-600 transition tracking-wide">
+                  {isEditMode ? 'Änderungen speichern' : 'Auto hinzufügen'}
+                </button>
                 <p className="text-xs text-gray-500 text-center">* Pflichtfelder</p>
               </div>
             </div>
