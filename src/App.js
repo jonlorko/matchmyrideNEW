@@ -7,6 +7,9 @@ import { ProfilePage } from './components/pages/ProfilePage';
 import { FavoritesPage } from './components/pages/FavoritesPage';
 import { AddCarPage } from './components/pages/AddCarPage';
 import { FilterModal } from './components/ui/FilterModal';
+import { getCoordinatesForPlz } from './utils/plzData';
+import { calculateDistanceBetweenPlz } from './utils/distanceCalculator';
+
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -193,6 +196,7 @@ const App = () => {
     beschreibung: '', 
     getriebe: 'Schaltgetriebe', 
     ps: 150, 
+    plz: '',
     standort: '',
     ausstattung: [],
     bilder: []
@@ -227,9 +231,9 @@ const App = () => {
         { id: 'seller1', email: 'verkaeufer@demo.de', password: 'demo', vorname: 'Auto', name: 'Dealer', geburtsdatum: '1985-03-20', strasse: 'Händlerweg 1', plz: '80331', ort: 'München', telefon: '+49 987 654321', profilbild: '' }
       ];
       const demoCars = [
-        { id: '1', sellerId: 'seller1', marke: 'BMW', modell: '3er', karosserie: 'Limousine', zustand: 'Gebraucht', verkaeuferTyp: 'Händler', sitzplaetze: 5, tueren: 4, baujahr: 2020, preis: 35000, kraftstoffart: 'Benzin', km: 45000, farbe: 'Schwarz', beschreibung: 'Top Zustand', getriebe: 'Automatik', ps: 184, standort: 'München', ausstattung: ['Allrad', 'Apple CarPlay', 'Alufelgen'], bilder: [] },
-        { id: '2', sellerId: 'seller1', marke: 'Mercedes', modell: 'C-Klasse', karosserie: 'Limousine', zustand: 'Gebraucht', verkaeuferTyp: 'Händler', sitzplaetze: 5, tueren: 4, baujahr: 2019, preis: 32000, kraftstoffart: 'Diesel', km: 60000, farbe: 'Silber', beschreibung: 'Gepflegt', getriebe: 'Automatik', ps: 194, standort: 'Hamburg', ausstattung: ['Klimaautomatik', 'Navigationssystem'], bilder: [] },
-        { id: '3', sellerId: 'seller1', marke: 'Audi', modell: 'A4', karosserie: 'Kombi', zustand: 'Jahreswagen', verkaeuferTyp: 'Privat', sitzplaetze: 5, tueren: 5, baujahr: 2021, preis: 38000, kraftstoffart: 'Hybrid', km: 25000, farbe: 'Weiß', beschreibung: 'Neuwertig', getriebe: 'Automatik', ps: 204, standort: 'Berlin', ausstattung: ['8fach bereift', 'LED-Scheinwerfer', 'Panoramadach'], bilder: [] }
+        { id: '1', sellerId: 'seller1', marke: 'BMW', modell: '3er', karosserie: 'Limousine', zustand: 'Gebraucht', verkaeuferTyp: 'Händler', sitzplaetze: 5, tueren: 4, baujahr: 2020, preis: 35000, kraftstoffart: 'Benzin', km: 45000, farbe: 'Schwarz', beschreibung: 'Top Zustand', getriebe: 'Automatik', ps: 184, plz: '80331', standort: 'München', ausstattung: ['Allrad', 'Apple CarPlay', 'Alufelgen'], bilder: [] },
+        { id: '2', sellerId: 'seller1', marke: 'Mercedes', modell: 'C-Klasse', karosserie: 'Limousine', zustand: 'Gebraucht', verkaeuferTyp: 'Händler', sitzplaetze: 5, tueren: 4, baujahr: 2019, preis: 32000, kraftstoffart: 'Diesel', km: 60000, farbe: 'Silber', beschreibung: 'Gepflegt', getriebe: 'Automatik', ps: 194, plz: '20095', standort: 'Hamburg', ausstattung: ['Klimaautomatik', 'Navigationssystem'], bilder: [] },
+        { id: '3', sellerId: 'seller1', marke: 'Audi', modell: 'A4', karosserie: 'Kombi', zustand: 'Jahreswagen', verkaeuferTyp: 'Privat', sitzplaetze: 5, tueren: 5, baujahr: 2021, preis: 38000, kraftstoffart: 'Hybrid', km: 25000, farbe: 'Weiß', beschreibung: 'Neuwertig', getriebe: 'Automatik', ps: 204, plz: '10115', standort: 'Berlin', ausstattung: ['8fach bereift', 'LED-Scheinwerfer', 'Panoramadach'], bilder: [] }
       ];
       
       try {
@@ -520,70 +524,74 @@ const App = () => {
     setMessageText('');
   };
 
-const handleEditCar = async (carData) => {
-  const updated = cars.map(c => 
-    c.id === editingCarId ? { ...c, ...carData } : c
-  );
-  setCars(updated);
-  try {
-    localStorage.setItem('cars', JSON.stringify(updated));
-  } catch (e) {
-    console.error('Error saving cars:', e);
-  }
-  setView('dashboard');
-  setEditingCarId(null);
-  setCarForm({ 
-    marke: '', 
-    modell: '', 
-    karosserie: 'Limousine',
-    zustand: 'Gebraucht',
-    verkaeuferTyp: 'Privat',
-    sitzplaetze: 5,
-    tueren: 4,
-    baujahr: 2020, 
-    preis: 20000, 
-    kraftstoffart: 'Benzin', 
-    km: 50000, 
-    farbe: '', 
-    beschreibung: '', 
-    getriebe: 'Schaltgetriebe', 
-    ps: 150, 
-    standort: '',
-    ausstattung: [],
-    bilder: []
-  });
-};
-const handleAddCar = async (carData) => {
-  const newCar = { id: Date.now(), sellerId: currentUser.id, ...carData };
-  const updated = [...cars, newCar];
-  setCars(updated);
-  try { 
-    localStorage.setItem('cars', JSON.stringify(updated)); 
-  } catch (e) {
-    console.error('Error saving cars:', e);
-  }
-  setView('dashboard');
-  setCarForm({ 
-    marke: '', 
-    modell: '', 
-    karosserie: 'Limousine',
-    zustand: 'Gebraucht',
-    verkaeuferTyp: 'Privat',
-    sitzplaetze: 5,
-    tueren: 4,
-    baujahr: 2020, 
-    preis: 20000, 
-    kraftstoffart: 'Benzin', 
-    km: 50000, 
-    farbe: '', 
-    beschreibung: '', 
-    getriebe: 'Schaltgetriebe', 
-    ps: 150, 
-    standort: '',
-    ausstattung: [],
-    bilder: []
-  });
-};
+  const handleEditCar = async (carData) => {
+    const updated = cars.map(c => 
+      c.id === editingCarId ? { ...c, ...carData } : c
+    );
+    setCars(updated);
+    try {
+      localStorage.setItem('cars', JSON.stringify(updated));
+    } catch (e) {
+      console.error('Error saving cars:', e);
+    }
+    setView('dashboard');
+    setEditingCarId(null);
+    setCarForm({ 
+      marke: '', 
+      modell: '', 
+      karosserie: 'Limousine',
+      zustand: 'Gebraucht',
+      verkaeuferTyp: 'Privat',
+      sitzplaetze: 5,
+      tueren: 4,
+      baujahr: 2020, 
+      preis: 20000, 
+      kraftstoffart: 'Benzin', 
+      km: 50000, 
+      farbe: '', 
+      beschreibung: '', 
+      getriebe: 'Schaltgetriebe', 
+      ps: 150, 
+      plz: '',
+      standort: '',
+      ausstattung: [],
+      bilder: []
+    });
+  };
+
+  const handleAddCar = async (carData) => {
+    const newCar = { id: Date.now(), sellerId: currentUser.id, ...carData };
+    const updated = [...cars, newCar];
+    setCars(updated);
+    try { 
+      localStorage.setItem('cars', JSON.stringify(updated)); 
+    } catch (e) {
+      console.error('Error saving cars:', e);
+    }
+    setView('dashboard');
+    setCarForm({ 
+      marke: '', 
+      modell: '', 
+      karosserie: 'Limousine',
+      zustand: 'Gebraucht',
+      verkaeuferTyp: 'Privat',
+      sitzplaetze: 5,
+      tueren: 4,
+      baujahr: 2020, 
+      preis: 20000, 
+      kraftstoffart: 'Benzin', 
+      km: 50000, 
+      farbe: '', 
+      beschreibung: '', 
+      getriebe: 'Schaltgetriebe', 
+      ps: 150, 
+      plz: '',
+      standort: '',
+      ausstattung: [],
+      bilder: []
+    });
+  };
+
   const handleDeleteCar = async (carId) => {
     const updated = cars.filter(c => c.id !== carId);
     setCars(updated);
@@ -862,29 +870,52 @@ const handleAddCar = async (carData) => {
       if (filters.getriebe && c.getriebe !== filters.getriebe) return false;
       if (c.ps < filters.minPS || c.ps > filters.maxPS) return false;
       if (filters.ausstattung.length > 0 && Array.isArray(c.ausstattung) && !filters.ausstattung.every(a => c.ausstattung.includes(a))) return false;
+      
+      if (filters.umkreis > 0) {
+        const userPlz = currentUser?.plz;
+        const carPlz = c.plz;
+        
+        if (!userPlz || !carPlz) {
+          return false;
+        }
+        
+        const distance = calculateDistanceBetweenPlz(
+          userPlz, 
+          carPlz, 
+          null,
+          getCoordinatesForPlz
+        );
+        
+        if (distance === null || distance > filters.umkreis) {
+          return false;
+        }
+      }
+      
       return true;
     });
   };
 
-if (view === 'login') {
-  return (
-    <LoginPage 
-      onLogin={handleLogin}
-      onNavigateToRegister={() => setView('register')}
-    />
-  );
-}
+  // === RENDER SECTION ===
 
-if (view === 'register') {
-  return (
-    <RegisterPage 
-      onRegister={handleRegister}
-      onBack={() => setView('login')}
-    />
-  );
-}
+  if (view === 'login') {
+    return (
+      <LoginPage 
+        onLogin={handleLogin}
+        onNavigateToRegister={() => setView('register')}
+      />
+    );
+  }
 
-if (view === 'profile') {
+  if (view === 'register') {
+    return (
+      <RegisterPage 
+        onRegister={handleRegister}
+        onBack={() => setView('login')}
+      />
+    );
+  }
+
+  if (view === 'profile') {
     return (
       <ProfilePage
         currentUser={currentUser}
@@ -898,47 +929,48 @@ if (view === 'profile') {
     );
   }
 
-if (view === 'add-car') {
-  return (
-    <AddCarPage
-      carForm={carForm}
-      setCarForm={setCarForm}
-      onBack={() => {
-        setView('dashboard');
-        setEditingCarId(null);
-        setCarForm({ 
-          marke: '', 
-          modell: '', 
-          karosserie: 'Limousine',
-          zustand: 'Gebraucht',
-          verkaeuferTyp: 'Privat',
-          sitzplaetze: 5,
-          tueren: 4,
-          baujahr: 2020, 
-          preis: 20000, 
-          kraftstoffart: 'Benzin', 
-          km: 50000, 
-          farbe: '', 
-          beschreibung: '', 
-          getriebe: 'Schaltgetriebe', 
-          ps: 150, 
-          standort: '',
-          ausstattung: [],
-          bilder: []
-        });
-      }}
-      onSave={editingCarId ? handleEditCar : handleAddCar}
-      onImageUpload={handleImageUpload}
-      standardFarben={standardFarben}
-      ausstattungsmerkmale={ausstattungsmerkmale}
-      equipmentSearch={equipmentSearch}
-      setEquipmentSearch={setEquipmentSearch}
-      isEditMode={!!editingCarId}
-    />
-  );
-}
+  if (view === 'add-car') {
+    return (
+      <AddCarPage
+        carForm={carForm}
+        setCarForm={setCarForm}
+        onBack={() => {
+          setView('dashboard');
+          setEditingCarId(null);
+          setCarForm({ 
+            marke: '', 
+            modell: '', 
+            karosserie: 'Limousine',
+            zustand: 'Gebraucht',
+            verkaeuferTyp: 'Privat',
+            sitzplaetze: 5,
+            tueren: 4,
+            baujahr: 2020, 
+            preis: 20000, 
+            kraftstoffart: 'Benzin', 
+            km: 50000, 
+            farbe: '', 
+            beschreibung: '', 
+            getriebe: 'Schaltgetriebe', 
+            ps: 150, 
+            plz: '',
+            standort: '',
+            ausstattung: [],
+            bilder: []
+          });
+        }}
+        onSave={editingCarId ? handleEditCar : handleAddCar}
+        onImageUpload={handleImageUpload}
+        standardFarben={standardFarben}
+        ausstattungsmerkmale={ausstattungsmerkmale}
+        equipmentSearch={equipmentSearch}
+        setEquipmentSearch={setEquipmentSearch}
+        isEditMode={!!editingCarId}
+      />
+    );
+  }
 
- if (view === 'favorites') {
+  if (view === 'favorites') {
     return (
       <FavoritesPage
         favorites={favorites}
@@ -1007,7 +1039,8 @@ if (view === 'add-car') {
           <div 
             className="bg-white rounded-xl border border-zinc-200 w-full max-w-md overflow-hidden shadow-2xl relative"
             style={{
-transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03) + 'deg)',              transition: isSwiping ? 'none' : 'transform 0.3s ease-out',
+              transform: `translateX(${swipeCurrentX}px) rotate(${swipeCurrentX * 0.03}deg)`,
+              transition: isSwiping ? 'none' : 'transform 0.3s ease-out',
               cursor: isSwiping ? 'grabbing' : 'grab',
               userSelect: 'none',
               touchAction: 'pan-y'
@@ -1045,7 +1078,8 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                   setCurrentImageIndex(0);
                 }}
               >
-<img src={car.bilder[0]} alt={car.marke + ' ' + car.modell} className="w-full h-full object-cover" />                {car.bilder.length > 1 && (
+                <img src={car.bilder[0]} alt={`${car.marke} ${car.modell}`} className="w-full h-full object-cover" />
+                {car.bilder.length > 1 && (
                   <div className="absolute bottom-3 right-3 bg-zinc-50 bg-opacity-70 text-blue-900 px-3 py-1 rounded-lg text-sm">
                     +{car.bilder.length - 1} Bilder
                   </div>
@@ -1075,16 +1109,16 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
               {(() => {
                 const priceAnalysis = analyzePriceQuality(car);
                 return (
-                  <div className={priceAnalysis.bgColor + ' ' + priceAnalysis.borderColor + ' border-2 rounded-lg p-3 mb-4'}>
+                  <div className={`${priceAnalysis.bgColor} ${priceAnalysis.borderColor} border-2 rounded-lg p-3 mb-4`}>
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">{priceAnalysis.icon}</span>
                       <div className="flex-1">
-                        <p className={'font-bold ' + priceAnalysis.color}>{priceAnalysis.label}</p>
+                        <p className={`font-bold ${priceAnalysis.color}`}>{priceAnalysis.label}</p>
                         <p className="text-sm text-gray-600">{priceAnalysis.message}</p>
                       </div>
                     </div>
                     <p className="text-xs text-gray-500 mt-2">
-                      Geschaetzter Marktwert: ~{priceAnalysis.estimatedPrice.toLocaleString()} EUR
+                      Geschätzter Marktwert: ~{priceAnalysis.estimatedPrice.toLocaleString()} EUR
                     </p>
                   </div>
                 );
@@ -1131,30 +1165,30 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
               </button>
             </div>
           </div>
-          {/* Swipe Instructions */}
-          <div className="mt-4 text-center text-zinc-400 text-sm font-light">
-            <p>Wische nach rechts fuer Anfrage | Wische nach links zum Ueberspringen</p>
-          </div>
+        </div>
+        {/* Swipe Instructions */}
+        <div className="mt-4 text-center text-zinc-400 text-sm font-light pb-4">
+          <p>Wische nach rechts für Anfrage | Wische nach links zum Überspringen</p>
         </div>
 
         {showFilterModal && (
-<FilterModal
-  isOpen={showFilterModal}
-  onClose={() => setShowFilterModal(false)}
-  filters={filters}
-  setFilters={setFilters}
-  savedSearches={savedSearches}
-  cars={cars}
-  onLoadSearch={handleLoadSearch}
-  onDeleteSearch={handleDeleteSearch}
-  onReset={() => { resetFilters(); }}
-  onApply={() => { setCurrentCarIndex(0); }}
-  ausstattungsmerkmale={ausstattungsmerkmale}
-  equipmentSearch={equipmentSearch}
-  setEquipmentSearch={setEquipmentSearch}
-  onOpenSaveSearch={() => setShowSaveSearchModal(true)}
-  standardFarben={standardFarben}
-/>
+          <FilterModal
+            isOpen={showFilterModal}
+            onClose={() => setShowFilterModal(false)}
+            filters={filters}
+            setFilters={setFilters}
+            savedSearches={savedSearches}
+            cars={cars}
+            onLoadSearch={handleLoadSearch}
+            onDeleteSearch={handleDeleteSearch}
+            onReset={() => { resetFilters(); }}
+            onApply={() => { setCurrentCarIndex(0); }}
+            ausstattungsmerkmale={ausstattungsmerkmale}
+            equipmentSearch={equipmentSearch}
+            setEquipmentSearch={setEquipmentSearch}
+            onOpenSaveSearch={() => setShowSaveSearchModal(true)}
+            standardFarben={standardFarben}
+          />
         )}
 
         {/* Save Search Modal */}
@@ -1289,7 +1323,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                   <div className="relative">
                     <img 
                       src={selectedCarForDetail.bilder[currentImageIndex]} 
-                      alt={selectedCarForDetail.marke + ' ' + selectedCarForDetail.modell} 
+                      alt={`${selectedCarForDetail.marke} ${selectedCarForDetail.modell}`} 
                       className="w-full h-64 md:h-96 object-cover"
                     />
                     
@@ -1320,7 +1354,7 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                             <button
                               key={idx}
                               onClick={() => setCurrentImageIndex(idx)}
-                              className={'w-2 h-2 rounded-lg transition ' + (idx === currentImageIndex ? 'bg-white w-6' : 'bg-white bg-opacity-50')}
+                              className={`w-2 h-2 rounded-lg transition ${idx === currentImageIndex ? 'bg-white w-6' : 'bg-white bg-opacity-50'}`}
                             />
                           ))}
                         </div>
@@ -1344,14 +1378,14 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                     {(() => {
                       const priceAnalysis = analyzePriceQuality(selectedCarForDetail);
                       return (
-                        <div className={priceAnalysis.bgColor + ' ' + priceAnalysis.borderColor + ' border-2 rounded-lg p-4'}>
+                        <div className={`${priceAnalysis.bgColor} ${priceAnalysis.borderColor} border-2 rounded-lg p-4`}>
                           <div className="flex items-center gap-3">
                             <span className="text-3xl">{priceAnalysis.icon}</span>
                             <div className="flex-1">
-                              <p className={'font-bold text-lg ' + priceAnalysis.color}>{priceAnalysis.label}</p>
+                              <p className={`font-bold text-lg ${priceAnalysis.color}`}>{priceAnalysis.label}</p>
                               <p className="text-sm text-gray-700">{priceAnalysis.message}</p>
                               <p className="text-xs text-gray-500 mt-1">
-                                Geschaetzter Marktwert: ~{priceAnalysis.estimatedPrice.toLocaleString()} EUR
+                                Geschätzter Marktwert: ~{priceAnalysis.estimatedPrice.toLocaleString()} EUR
                               </p>
                             </div>
                           </div>
@@ -1597,8 +1631,8 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                 <p className="text-zinc-500 font-light">Keine Nachrichten</p>
               </div>
             ) : selectedChat.messages.map(m => (
-              <div key={m.id} className={'flex ' + (m.senderId === currentUser.id ? 'justify-end' : 'justify-start')}>
-                <div className={'max-w-xs px-4 py-3 rounded-xl ' + (m.senderId === currentUser.id ? 'bg-orange-500 text-white' : 'bg-white border border-zinc-200')}>
+              <div key={m.id} className={`flex ${m.senderId === currentUser.id ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-xs px-4 py-3 rounded-xl ${m.senderId === currentUser.id ? 'bg-orange-500 text-white' : 'bg-white border border-zinc-200'}`}>
                   <p className="text-sm font-light">{m.text}</p>
                 </div>
               </div>
@@ -1736,34 +1770,35 @@ transform: 'translateX(' + swipeCurrentX + 'px) rotate(' + (swipeCurrentX * 0.03
                   <p className="text-sm text-zinc-600 font-light">{c.preis.toLocaleString()} EUR</p>
                 </div>
                 <button 
-  onClick={() => {
-    setEditingCarId(c.id);
-    setCarForm({
-      marke: c.marke,
-      modell: c.modell,
-      karosserie: c.karosserie,
-      zustand: c.zustand,
-      verkaeuferTyp: c.verkaeuferTyp,
-      sitzplaetze: c.sitzplaetze,
-      tueren: c.tueren,
-      baujahr: c.baujahr,
-      preis: c.preis,
-      kraftstoffart: c.kraftstoffart,
-      km: c.km,
-      farbe: c.farbe,
-      beschreibung: c.beschreibung,
-      getriebe: c.getriebe,
-      ps: c.ps,
-      standort: c.standort,
-      ausstattung: c.ausstattung || [],
-      bilder: c.bilder || []
-    });
-    setView('add-car');
-  }} 
-  className="text-blue-500 hover:text-blue-600 p-2 hover:bg-blue-50 rounded-lg transition"
->
-  <Edit size={20} strokeWidth={1.5} />
-</button>
+                  onClick={() => {
+                    setEditingCarId(c.id);
+                    setCarForm({
+                      marke: c.marke,
+                      modell: c.modell,
+                      karosserie: c.karosserie,
+                      zustand: c.zustand,
+                      verkaeuferTyp: c.verkaeuferTyp,
+                      sitzplaetze: c.sitzplaetze,
+                      tueren: c.tueren,
+                      baujahr: c.baujahr,
+                      preis: c.preis,
+                      kraftstoffart: c.kraftstoffart,
+                      km: c.km,
+                      farbe: c.farbe,
+                      beschreibung: c.beschreibung,
+                      getriebe: c.getriebe,
+                      ps: c.ps,
+                      plz: c.plz || '',
+                      standort: c.standort,
+                      ausstattung: c.ausstattung || [],
+                      bilder: c.bilder || []
+                    });
+                    setView('add-car');
+                  }} 
+                  className="text-blue-500 hover:text-blue-600 p-2 hover:bg-blue-50 rounded-lg transition"
+                >
+                  <Edit size={20} strokeWidth={1.5} />
+                </button>
                 <button onClick={() => handleDeleteCar(c.id)} className="text-red-500 hover:text-red-600 p-2 hover:bg-red-50 rounded-lg transition">
                   <Trash2 size={20} strokeWidth={1.5} />
                 </button>
