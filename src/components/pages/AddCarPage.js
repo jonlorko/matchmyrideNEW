@@ -14,21 +14,6 @@ export const AddCarPage = ({
   setEquipmentSearch,
   isEditMode
 }) => {
-  useEffect(() => {
-    if (currentUser?.plz) {
-      setCarForm(prev => {
-        if (!prev.plz) {
-          return {
-            ...prev,
-            plz: currentUser.plz,
-            standort: currentUser.ort || ''
-          };
-        }
-        return prev;
-      });
-    }
-  }, [currentUser, carForm.plz]);
-
   return (
     <div className="min-h-screen bg-zinc-50">
       <header className="bg-white border-b border-zinc-200 px-6 py-4 flex items-center gap-4">
