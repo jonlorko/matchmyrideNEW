@@ -168,30 +168,70 @@ export const FilterModal = ({
 
               {/* 2. Preis */}
               <div>
-                <label className="block text-sm font-medium mb-2">Preis</label>
+                <label className="block text-sm font-medium mb-2">Preis (EUR)</label>
                 <div className="flex gap-3 items-center">
                   <div className="flex-1">
-                    <label className="block text-xs text-gray-600 mb-1">Von (EUR)</label>
-                    <input type="number" value={filters.minPreis} onChange={e => setFilters({ ...filters, minPreis: parseInt(e.target.value) || 0 })} className="w-full px-4 py-2 border rounded-lg" placeholder="0" />
+                    <label className="block text-xs text-gray-600 mb-1">Von</label>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={filters.minPreis === 0 ? '' : filters.minPreis}
+                      onChange={e => {
+                        const val = e.target.value.replace(/\D/g, '');
+                        setFilters({ ...filters, minPreis: val === '' ? 0 : parseInt(val) });
+                      }}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="0"
+                    />
                   </div>
                   <div className="flex-1">
-                    <label className="block text-xs text-gray-600 mb-1">Bis (EUR)</label>
-                    <input type="number" value={filters.maxPreis} onChange={e => setFilters({ ...filters, maxPreis: parseInt(e.target.value) || 100000 })} className="w-full px-4 py-2 border rounded-lg" placeholder="100000" />
+                    <label className="block text-xs text-gray-600 mb-1">Bis</label>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={filters.maxPreis === 100000 ? '' : filters.maxPreis}
+                      onChange={e => {
+                        const val = e.target.value.replace(/\D/g, '');
+                        setFilters({ ...filters, maxPreis: val === '' ? 100000 : parseInt(val) });
+                      }}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="100000"
+                    />
                   </div>
                 </div>
               </div>
 
               {/* 3. Kilometerstand */}
               <div>
-                <label className="block text-sm font-medium mb-2">Kilometerstand</label>
+                <label className="block text-sm font-medium mb-2">Kilometerstand (km)</label>
                 <div className="flex gap-3 items-center">
                   <div className="flex-1">
-                    <label className="block text-xs text-gray-600 mb-1">Von (km)</label>
-                    <input type="number" value={filters.minKm} onChange={e => setFilters({ ...filters, minKm: parseInt(e.target.value) || 0 })} className="w-full px-4 py-2 border rounded-lg" placeholder="0" />
+                    <label className="block text-xs text-gray-600 mb-1">Von</label>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={filters.minKm === 0 ? '' : filters.minKm}
+                      onChange={e => {
+                        const val = e.target.value.replace(/\D/g, '');
+                        setFilters({ ...filters, minKm: val === '' ? 0 : parseInt(val) });
+                      }}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="0"
+                    />
                   </div>
                   <div className="flex-1">
-                    <label className="block text-xs text-gray-600 mb-1">Bis (km)</label>
-                    <input type="number" value={filters.maxKm} onChange={e => setFilters({ ...filters, maxKm: parseInt(e.target.value) || 300000 })} className="w-full px-4 py-2 border rounded-lg" placeholder="300000" />
+                    <label className="block text-xs text-gray-600 mb-1">Bis</label>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={filters.maxKm === 300000 ? '' : filters.maxKm}
+                      onChange={e => {
+                        const val = e.target.value.replace(/\D/g, '');
+                        setFilters({ ...filters, maxKm: val === '' ? 300000 : parseInt(val) });
+                      }}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="300000"
+                    />
                   </div>
                 </div>
               </div>
@@ -202,11 +242,31 @@ export const FilterModal = ({
                 <div className="flex gap-3 items-center">
                   <div className="flex-1">
                     <label className="block text-xs text-gray-600 mb-1">Von</label>
-                    <input type="number" value={filters.minBaujahr} onChange={e => setFilters({ ...filters, minBaujahr: parseInt(e.target.value) || 2000 })} className="w-full px-4 py-2 border rounded-lg" placeholder="2000" />
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={filters.minBaujahr === 2000 ? '' : filters.minBaujahr}
+                      onChange={e => {
+                        const val = e.target.value.replace(/\D/g, '');
+                        setFilters({ ...filters, minBaujahr: val === '' ? 2000 : parseInt(val) });
+                      }}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="2000"
+                    />
                   </div>
                   <div className="flex-1">
                     <label className="block text-xs text-gray-600 mb-1">Bis</label>
-                    <input type="number" value={filters.maxBaujahr} onChange={e => setFilters({ ...filters, maxBaujahr: parseInt(e.target.value) || 2025 })} className="w-full px-4 py-2 border rounded-lg" placeholder="2025" />
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={filters.maxBaujahr === 2025 ? '' : filters.maxBaujahr}
+                      onChange={e => {
+                        const val = e.target.value.replace(/\D/g, '');
+                        setFilters({ ...filters, maxBaujahr: val === '' ? 2025 : parseInt(val) });
+                      }}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="2025"
+                    />
                   </div>
                 </div>
               </div>
@@ -238,15 +298,35 @@ export const FilterModal = ({
 
               {/* 7. Leistung (PS) */}
               <div>
-                <label className="block text-sm font-medium mb-2">Leistung</label>
+                <label className="block text-sm font-medium mb-2">Leistung (PS)</label>
                 <div className="flex gap-3 items-center">
                   <div className="flex-1">
-                    <label className="block text-xs text-gray-600 mb-1">Von (PS)</label>
-                    <input type="number" value={filters.minPS} onChange={e => setFilters({ ...filters, minPS: parseInt(e.target.value) || 0 })} className="w-full px-4 py-2 border rounded-lg" placeholder="0" />
+                    <label className="block text-xs text-gray-600 mb-1">Von</label>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={filters.minPS === 0 ? '' : filters.minPS}
+                      onChange={e => {
+                        const val = e.target.value.replace(/\D/g, '');
+                        setFilters({ ...filters, minPS: val === '' ? 0 : parseInt(val) });
+                      }}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="0"
+                    />
                   </div>
                   <div className="flex-1">
-                    <label className="block text-xs text-gray-600 mb-1">Bis (PS)</label>
-                    <input type="number" value={filters.maxPS} onChange={e => setFilters({ ...filters, maxPS: parseInt(e.target.value) || 500 })} className="w-full px-4 py-2 border rounded-lg" placeholder="500" />
+                    <label className="block text-xs text-gray-600 mb-1">Bis</label>
+                    <input
+                      type="text"
+                      inputMode="numeric"
+                      value={filters.maxPS === 500 ? '' : filters.maxPS}
+                      onChange={e => {
+                        const val = e.target.value.replace(/\D/g, '');
+                        setFilters({ ...filters, maxPS: val === '' ? 500 : parseInt(val) });
+                      }}
+                      className="w-full px-4 py-2 border rounded-lg"
+                      placeholder="500"
+                    />
                   </div>
                 </div>
               </div>

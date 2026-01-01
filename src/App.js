@@ -35,15 +35,15 @@ const App = () => {
   const [ratingForm, setRatingForm] = useState({ sellerId: '', stars: 5, comment: '' });
   const [equipmentSearch, setEquipmentSearch] = useState('');
   const [editingCarId, setEditingCarId] = useState(null);
-  
+
   // Swipe States
   const [swipeStartX, setSwipeStartX] = useState(0);
   const [swipeCurrentX, setSwipeCurrentX] = useState(0);
   const [isSwiping, setIsSwiping] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState(null);
-  
-  const [filters, setFilters] = useState({ 
-    marke: '', 
+
+  const [filters, setFilters] = useState({
+    marke: '',
     modell: '',
     karosserie: '',
     zustand: '',
@@ -51,12 +51,12 @@ const App = () => {
     sitzplaetze: '',
     tueren: '',
     farbe: '',
-    minPreis: 0, 
-    maxPreis: 100000, 
-    minBaujahr: 2000, 
-    maxBaujahr: 2025, 
-    kraftstoffart: '', 
-    minKm: 0, 
+    minPreis: 0,
+    maxPreis: 100000,
+    minBaujahr: 2000,
+    maxBaujahr: 2025,
+    kraftstoffart: '',
+    minKm: 0,
     maxKm: 300000,
     getriebe: '',
     minPS: 0,
@@ -164,7 +164,7 @@ const App = () => {
   // Standard-Autofarben
   const standardFarben = [
     'Schwarz',
-    'Weiß', 
+    'Weiß',
     'Grau',
     'Silber',
     'Blau',
@@ -180,22 +180,22 @@ const App = () => {
     'Bordeaux'
   ];
   const [profileForm, setProfileForm] = useState({ vorname: '', name: '', geburtsdatum: '', strasse: '', plz: '', ort: '', telefon: '', profilbild: '' });
-  const [carForm, setCarForm] = useState({ 
-    marke: '', 
-    modell: '', 
+  const [carForm, setCarForm] = useState({
+    marke: '',
+    modell: '',
     karosserie: 'Limousine',
     zustand: 'Gebraucht',
     verkaeuferTyp: 'Privat',
     sitzplaetze: 5,
     tueren: 4,
-    baujahr: 2020, 
-    preis: 20000, 
-    kraftstoffart: 'Benzin', 
-    km: 50000, 
-    farbe: '', 
-    beschreibung: '', 
-    getriebe: 'Schaltgetriebe', 
-    ps: 150, 
+    baujahr: 2020,
+    preis: 20000,
+    kraftstoffart: 'Benzin',
+    km: 50000,
+    farbe: '',
+    beschreibung: '',
+    getriebe: 'Schaltgetriebe',
+    ps: 150,
     plz: '',
     standort: '',
     ausstattung: [],
@@ -204,19 +204,19 @@ const App = () => {
 
   const handleImageUpload = (file, callback) => {
     if (!file) return;
-    
+
     // Check file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       alert('Bild ist zu groß! Maximal 5MB erlaubt.');
       return;
     }
-    
+
     // Check file type
     if (!file.type.startsWith('image/')) {
       alert('Bitte nur Bilddateien hochladen!');
       return;
     }
-    
+
     const reader = new FileReader();
     reader.onload = (e) => {
       callback(e.target.result);
@@ -227,15 +227,14 @@ const App = () => {
   useEffect(() => {
     const init = async () => {
       const demoUsers = [
-        { id: 'buyer1', email: 'kaeufer@demo.de', password: 'demo', vorname: 'Max', name: 'Mustermann', geburtsdatum: '1990-05-15', strasse: 'Musterstraße 123', plz: '10115', ort: 'Berlin', telefon: '+49 123 456789', profilbild: '' },
-        { id: 'seller1', email: 'verkaeufer@demo.de', password: 'demo', vorname: 'Auto', name: 'Dealer', geburtsdatum: '1985-03-20', strasse: 'Händlerweg 1', plz: '80331', ort: 'München', telefon: '+49 987 654321', profilbild: '' }
+        { id: 'user1', email: 'demo@demo.de', password: 'demo', vorname: 'Max', name: 'Mustermann', geburtsdatum: '1990-05-15', strasse: 'Musterstraße 123', plz: '40215', ort: 'Düsseldorf', telefon: '+49 123 456789', profilbild: '' }
       ];
       const demoCars = [
-        { id: '1', sellerId: 'seller1', marke: 'BMW', modell: '3er', karosserie: 'Limousine', zustand: 'Gebraucht', verkaeuferTyp: 'Händler', sitzplaetze: 5, tueren: 4, baujahr: 2020, preis: 35000, kraftstoffart: 'Benzin', km: 45000, farbe: 'Schwarz', beschreibung: 'Top Zustand', getriebe: 'Automatik', ps: 184, plz: '80331', standort: 'München', ausstattung: ['Allrad', 'Apple CarPlay', 'Alufelgen'], bilder: [] },
-        { id: '2', sellerId: 'seller1', marke: 'Mercedes', modell: 'C-Klasse', karosserie: 'Limousine', zustand: 'Gebraucht', verkaeuferTyp: 'Händler', sitzplaetze: 5, tueren: 4, baujahr: 2019, preis: 32000, kraftstoffart: 'Diesel', km: 60000, farbe: 'Silber', beschreibung: 'Gepflegt', getriebe: 'Automatik', ps: 194, plz: '20095', standort: 'Hamburg', ausstattung: ['Klimaautomatik', 'Navigationssystem'], bilder: [] },
-        { id: '3', sellerId: 'seller1', marke: 'Audi', modell: 'A4', karosserie: 'Kombi', zustand: 'Jahreswagen', verkaeuferTyp: 'Privat', sitzplaetze: 5, tueren: 5, baujahr: 2021, preis: 38000, kraftstoffart: 'Hybrid', km: 25000, farbe: 'Weiß', beschreibung: 'Neuwertig', getriebe: 'Automatik', ps: 204, plz: '10115', standort: 'Berlin', ausstattung: ['8fach bereift', 'LED-Scheinwerfer', 'Panoramadach'], bilder: [] }
+        { id: '1', sellerId: 'user1', marke: 'BMW', modell: '3er', karosserie: 'Limousine', zustand: 'Gebraucht', verkaeuferTyp: 'Händler', sitzplaetze: 5, tueren: 4, baujahr: 2020, preis: 35000, kraftstoffart: 'Benzin', km: 45000, farbe: 'Schwarz', beschreibung: 'Top Zustand', getriebe: 'Automatik', ps: 184, plz: '80331', standort: 'München', ausstattung: ['Allrad', 'Apple CarPlay', 'Alufelgen'], bilder: [] },
+        { id: '2', sellerId: 'user1', marke: 'Mercedes', modell: 'C-Klasse', karosserie: 'Limousine', zustand: 'Gebraucht', verkaeuferTyp: 'Händler', sitzplaetze: 5, tueren: 4, baujahr: 2019, preis: 32000, kraftstoffart: 'Diesel', km: 60000, farbe: 'Silber', beschreibung: 'Gepflegt', getriebe: 'Automatik', ps: 194, plz: '20095', standort: 'Hamburg', ausstattung: ['Klimaautomatik', 'Navigationssystem'], bilder: [] },
+        { id: '3', sellerId: 'user1', marke: 'Audi', modell: 'A4', karosserie: 'Kombi', zustand: 'Jahreswagen', verkaeuferTyp: 'Privat', sitzplaetze: 5, tueren: 5, baujahr: 2021, preis: 38000, kraftstoffart: 'Hybrid', km: 25000, farbe: 'Weiß', beschreibung: 'Neuwertig', getriebe: 'Automatik', ps: 204, plz: '10115', standort: 'Berlin', ausstattung: ['8fach bereift', 'LED-Scheinwerfer', 'Panoramadach'], bilder: [] }
       ];
-      
+
       try {
         // Load users with fallback
         try {
@@ -356,15 +355,15 @@ const App = () => {
 
   useEffect(() => {
     if (currentUser) {
-      setProfileForm({ 
-        vorname: currentUser.vorname || '', 
-        name: currentUser.name || '', 
-        geburtsdatum: currentUser.geburtsdatum || '', 
-        strasse: currentUser.strasse || '', 
-        plz: currentUser.plz || '', 
-        ort: currentUser.ort || '', 
-        telefon: currentUser.telefon || '', 
-        profilbild: currentUser.profilbild || '' 
+      setProfileForm({
+        vorname: currentUser.vorname || '',
+        name: currentUser.name || '',
+        geburtsdatum: currentUser.geburtsdatum || '',
+        strasse: currentUser.strasse || '',
+        plz: currentUser.plz || '',
+        ort: currentUser.ort || '',
+        telefon: currentUser.telefon || '',
+        profilbild: currentUser.profilbild || ''
       });
     }
   }, [currentUser]);
@@ -373,13 +372,12 @@ const App = () => {
     const user = users.find(u => u.email === email && u.password === password);
     if (user) {
       setCurrentUser(user);
-      const role = user.email === 'verkaeufer@demo.de' ? 'verkaeufer' : 'kaeufer';
-      setCurrentRole(role);
-      setView(user.email === 'verkaeufer@demo.de' ? 'dashboard' : 'swipe');
-      
+      setCurrentRole('kaeufer');
+      setView('swipe');
+
       // Save session for auto-login
       try {
-        localStorage.setItem('currentSession', JSON.stringify({ userId: user.id, role }));
+        localStorage.setItem('currentSession', JSON.stringify({ userId: user.id, role: 'kaeufer' }));
       } catch (e) {
         console.error('Failed to save session:', e);
       }
@@ -405,8 +403,8 @@ const App = () => {
       const req = { id: Date.now(), carId: car.id, buyerId: currentUser.id, sellerId: car.sellerId, status: 'pending' };
       const updated = [...requests, req];
       setRequests(updated);
-      try { 
-        localStorage.setItem('requests', JSON.stringify(updated)); 
+      try {
+        localStorage.setItem('requests', JSON.stringify(updated));
       } catch (e) {
         console.error('Error saving requests:', e);
       }
@@ -486,8 +484,8 @@ const App = () => {
   const handleRequestResponse = async (reqId, accept) => {
     const updated = requests.map(r => r.id === reqId ? { ...r, status: accept ? 'accepted' : 'rejected' } : r);
     setRequests(updated);
-    try { 
-      localStorage.setItem('requests', JSON.stringify(updated)); 
+    try {
+      localStorage.setItem('requests', JSON.stringify(updated));
     } catch (e) {
       console.error('Error saving requests:', e);
     }
@@ -497,8 +495,8 @@ const App = () => {
       const match = { id: Date.now(), carId: req.carId, buyerId: req.buyerId, sellerId: req.sellerId, messages: [] };
       const updatedMatches = [...matches, match];
       setMatches(updatedMatches);
-      try { 
-        localStorage.setItem('matches', JSON.stringify(updatedMatches)); 
+      try {
+        localStorage.setItem('matches', JSON.stringify(updatedMatches));
       } catch (e) {
         console.error('Error saving matches:', e);
       }
@@ -515,8 +513,8 @@ const App = () => {
       return m;
     });
     setMatches(updated);
-    try { 
-      localStorage.setItem('matches', JSON.stringify(updated)); 
+    try {
+      localStorage.setItem('matches', JSON.stringify(updated));
     } catch (e) {
       console.error('Error saving matches:', e);
     }
@@ -525,7 +523,7 @@ const App = () => {
   };
 
   const handleEditCar = async (carData) => {
-    const updated = cars.map(c => 
+    const updated = cars.map(c =>
       c.id === editingCarId ? { ...c, ...carData } : c
     );
     setCars(updated);
@@ -536,22 +534,22 @@ const App = () => {
     }
     setView('dashboard');
     setEditingCarId(null);
-    setCarForm({ 
-      marke: '', 
-      modell: '', 
+    setCarForm({
+      marke: '',
+      modell: '',
       karosserie: 'Limousine',
       zustand: 'Gebraucht',
       verkaeuferTyp: 'Privat',
       sitzplaetze: 5,
       tueren: 4,
-      baujahr: 2020, 
-      preis: 20000, 
-      kraftstoffart: 'Benzin', 
-      km: 50000, 
-      farbe: '', 
-      beschreibung: '', 
-      getriebe: 'Schaltgetriebe', 
-      ps: 150, 
+      baujahr: 2020,
+      preis: 20000,
+      kraftstoffart: 'Benzin',
+      km: 50000,
+      farbe: '',
+      beschreibung: '',
+      getriebe: 'Schaltgetriebe',
+      ps: 150,
       plz: '',
       standort: '',
       ausstattung: [],
@@ -563,28 +561,28 @@ const App = () => {
     const newCar = { id: Date.now(), sellerId: currentUser.id, ...carData };
     const updated = [...cars, newCar];
     setCars(updated);
-    try { 
-      localStorage.setItem('cars', JSON.stringify(updated)); 
+    try {
+      localStorage.setItem('cars', JSON.stringify(updated));
     } catch (e) {
       console.error('Error saving cars:', e);
     }
     setView('dashboard');
-    setCarForm({ 
-      marke: '', 
-      modell: '', 
+    setCarForm({
+      marke: '',
+      modell: '',
       karosserie: 'Limousine',
       zustand: 'Gebraucht',
       verkaeuferTyp: 'Privat',
       sitzplaetze: 5,
       tueren: 4,
-      baujahr: 2020, 
-      preis: 20000, 
-      kraftstoffart: 'Benzin', 
-      km: 50000, 
-      farbe: '', 
-      beschreibung: '', 
-      getriebe: 'Schaltgetriebe', 
-      ps: 150, 
+      baujahr: 2020,
+      preis: 20000,
+      kraftstoffart: 'Benzin',
+      km: 50000,
+      farbe: '',
+      beschreibung: '',
+      getriebe: 'Schaltgetriebe',
+      ps: 150,
       plz: '',
       standort: '',
       ausstattung: [],
@@ -595,25 +593,25 @@ const App = () => {
   const handleDeleteCar = async (carId) => {
     const updated = cars.filter(c => c.id !== carId);
     setCars(updated);
-    try { 
-      localStorage.setItem('cars', JSON.stringify(updated)); 
+    try {
+      localStorage.setItem('cars', JSON.stringify(updated));
     } catch (e) {
       console.error('Error saving cars:', e);
-    } 
+    }
   };
 
   const handleRegister = async (data) => {
     const newUser = { id: Date.now(), ...data };
     const updated = [...users, newUser];
     setUsers(updated);
-    try { 
-      localStorage.setItem('users', JSON.stringify(updated)); 
+    try {
+      localStorage.setItem('users', JSON.stringify(updated));
     } catch (e) {
       console.error('Error saving users:', e);
     }
     setCurrentUser(newUser);
     setView('swipe');
-    
+
     // Save session for auto-login
     try {
       localStorage.setItem('currentSession', JSON.stringify({ userId: newUser.id, role: 'kaeufer' }));
@@ -625,8 +623,8 @@ const App = () => {
   const handleUpdateProfile = async () => {
     const updated = users.map(u => u.id === currentUser.id ? { ...u, ...profileForm } : u);
     setUsers(updated);
-    try { 
-      localStorage.setItem('users', JSON.stringify(updated)); 
+    try {
+      localStorage.setItem('users', JSON.stringify(updated));
     } catch (e) {
       console.error('Error saving users:', e);
     }
@@ -638,8 +636,8 @@ const App = () => {
     const fav = { id: Date.now(), carId, buyerId: currentUser.id };
     const updated = [...favorites, fav];
     setFavorites(updated);
-    try { 
-      localStorage.setItem('favorites', JSON.stringify(updated)); 
+    try {
+      localStorage.setItem('favorites', JSON.stringify(updated));
     } catch (e) {
       console.error('Error saving favorites:', e);
     }
@@ -654,14 +652,14 @@ const App = () => {
       alert('Bitte gib der Suche einen Namen!');
       return;
     }
-    
+
     const newSearch = {
       id: Date.now(),
       name: searchName,
       filters: { ...filters },
       createdAt: new Date().toISOString()
     };
-    
+
     const updated = [...savedSearches, newSearch];
     setSavedSearches(updated);
     try {
@@ -669,7 +667,7 @@ const App = () => {
     } catch (e) {
       console.error('Error saving search:', e);
     }
-    
+
     setSearchName('');
     setShowSaveSearchModal(false);
     alert(`Suche "${searchName}" gespeichert!`);
@@ -719,35 +717,35 @@ const App = () => {
     };
 
     const basePrice = brandBasePrice[car.marke] || 25000;
-    
+
     // Faktor für Baujahr (neuere Autos teurer)
     const currentYear = 2025;
     const age = currentYear - car.baujahr;
     const yearFactor = Math.max(0.4, 1 - (age * 0.08)); // Pro Jahr ca. 8% Wertverlust
-    
+
     // Faktor für Kilometerstand (weniger km = teurer)
-    const kmFactor = car.km < 30000 ? 1.2 : 
-                     car.km < 60000 ? 1.0 : 
-                     car.km < 100000 ? 0.85 : 
-                     car.km < 150000 ? 0.7 : 0.55;
-    
+    const kmFactor = car.km < 30000 ? 1.2 :
+      car.km < 60000 ? 1.0 :
+        car.km < 100000 ? 0.85 :
+          car.km < 150000 ? 0.7 : 0.55;
+
     // Faktor für PS (mehr Leistung = teurer)
     const psFactor = car.ps > 250 ? 1.3 :
-                     car.ps > 180 ? 1.15 :
-                     car.ps > 120 ? 1.0 : 0.9;
-    
+      car.ps > 180 ? 1.15 :
+        car.ps > 120 ? 1.0 : 0.9;
+
     // Faktor für Zustand
     const conditionFactor = car.zustand === 'Neu' ? 1.5 :
-                           car.zustand === 'Jahreswagen' ? 1.25 :
-                           car.zustand === 'Vorführwagen' ? 1.2 :
-                           car.zustand === 'Gebraucht' ? 1.0 : 0.8;
-    
+      car.zustand === 'Jahreswagen' ? 1.25 :
+        car.zustand === 'Vorführwagen' ? 1.2 :
+          car.zustand === 'Gebraucht' ? 1.0 : 0.8;
+
     // Geschaetzter Marktwert
     const estimatedPrice = basePrice * yearFactor * kmFactor * psFactor * conditionFactor;
-    
+
     // Preis-Differenz in Prozent
     const priceDiff = ((car.preis - estimatedPrice) / estimatedPrice) * 100;
-    
+
     // Bewertung
     if (priceDiff < -15) {
       return {
@@ -809,10 +807,10 @@ const App = () => {
 
   const getSellerRating = (sellerId) => {
     if (!sellerId || !Array.isArray(sellerRatings)) return null;
-    
+
     const sellerReviews = sellerRatings.filter(r => r && r.sellerId === sellerId);
     if (sellerReviews.length === 0) return null;
-    
+
     const avgStars = sellerReviews.reduce((sum, r) => sum + (r.stars || 0), 0) / sellerReviews.length;
     return {
       avgStars: avgStars.toFixed(1),
@@ -852,7 +850,7 @@ const App = () => {
 
   const getFilteredCars = () => {
     if (!Array.isArray(cars)) return [];
-    
+
     return cars.filter(c => {
       if (!c) return false;
       if (filters.marke && c.marke !== filters.marke) return false;
@@ -870,27 +868,27 @@ const App = () => {
       if (filters.getriebe && c.getriebe !== filters.getriebe) return false;
       if (c.ps < filters.minPS || c.ps > filters.maxPS) return false;
       if (filters.ausstattung.length > 0 && Array.isArray(c.ausstattung) && !filters.ausstattung.every(a => c.ausstattung.includes(a))) return false;
-      
+
       if (filters.umkreis > 0) {
         const userPlz = currentUser?.plz;
         const carPlz = c.plz;
-        
+
         if (!userPlz || !carPlz) {
           return false;
         }
-        
+
         const distance = calculateDistanceBetweenPlz(
-          userPlz, 
-          carPlz, 
+          userPlz,
+          carPlz,
           null,
           getCoordinatesForPlz
         );
-        
+
         if (distance === null || distance > filters.umkreis) {
           return false;
         }
       }
-      
+
       return true;
     });
   };
@@ -899,7 +897,7 @@ const App = () => {
 
   if (view === 'login') {
     return (
-      <LoginPage 
+      <LoginPage
         onLogin={handleLogin}
         onNavigateToRegister={() => setView('register')}
       />
@@ -908,7 +906,7 @@ const App = () => {
 
   if (view === 'register') {
     return (
-      <RegisterPage 
+      <RegisterPage
         onRegister={handleRegister}
         onBack={() => setView('login')}
       />
@@ -934,25 +932,26 @@ const App = () => {
       <AddCarPage
         carForm={carForm}
         setCarForm={setCarForm}
+        currentUser={currentUser}
         onBack={() => {
           setView('dashboard');
           setEditingCarId(null);
-          setCarForm({ 
-            marke: '', 
-            modell: '', 
+          setCarForm({
+            marke: '',
+            modell: '',
             karosserie: 'Limousine',
             zustand: 'Gebraucht',
             verkaeuferTyp: 'Privat',
             sitzplaetze: 5,
             tueren: 4,
-            baujahr: 2020, 
-            preis: 20000, 
-            kraftstoffart: 'Benzin', 
-            km: 50000, 
-            farbe: '', 
-            beschreibung: '', 
-            getriebe: 'Schaltgetriebe', 
-            ps: 150, 
+            baujahr: 2020,
+            preis: 20000,
+            kraftstoffart: 'Benzin',
+            km: 50000,
+            farbe: '',
+            beschreibung: '',
+            getriebe: 'Schaltgetriebe',
+            ps: 150,
             plz: '',
             standort: '',
             ausstattung: [],
@@ -992,7 +991,9 @@ const App = () => {
               <button onClick={() => setView('favorites')} className="p-2"><Star size={20} /></button>
               <button onClick={() => setShowFilterModal(true)} className="p-2"><Filter size={20} /></button>
               <button onClick={() => setView('profile')} className="p-2"><User size={20} /></button>
-              <button onClick={() => { setCurrentRole('verkaeufer'); setView('dashboard'); }} className="text-xs bg-gray-100 px-2 py-1 rounded">Verkäufer</button>
+              <button onClick={() => { setCurrentRole('verkaeufer'); setView('dashboard'); }} className="text-sm bg-zinc-100 hover:bg-zinc-200 px-3 py-1 rounded-lg text-zinc-700 transition border border-zinc-300 font-light">
+                Meine Autos
+              </button>
               <button onClick={() => setView('matches')} className="p-2"><MessageCircle size={20} /></button>
               <button onClick={handleLogout} className="text-xs text-red-600">Logout</button>
             </div>
@@ -1027,7 +1028,7 @@ const App = () => {
               <User size={20} className="text-zinc-600" strokeWidth={1.5} />
             </button>
             <button onClick={() => { setCurrentRole('verkaeufer'); setView('dashboard'); }} className="text-sm bg-zinc-100 hover:bg-zinc-200 px-3 py-1 rounded-lg text-zinc-700 transition border border-zinc-300 font-light">
-              Verkäufer
+              Meine Autos 
             </button>
             <button onClick={() => setView('matches')} className="p-2.5 hover:bg-zinc-100 rounded-lg transition">
               <MessageCircle size={20} className="text-zinc-600" strokeWidth={1.5} />
@@ -1036,7 +1037,7 @@ const App = () => {
           </div>
         </header>
         <div className="flex-1 flex items-center justify-center p-6">
-          <div 
+          <div
             className="bg-white rounded-xl border border-zinc-200 w-full max-w-md overflow-hidden shadow-2xl relative"
             style={{
               transform: `translateX(${swipeCurrentX}px) rotate(${swipeCurrentX * 0.03}deg)`,
@@ -1069,7 +1070,7 @@ const App = () => {
               </div>
             )}
             {car.bilder && car.bilder.length > 0 ? (
-              <div 
+              <div
                 className="h-80 relative bg-gray-100 cursor-pointer"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -1089,7 +1090,7 @@ const App = () => {
                 </div>
               </div>
             ) : (
-              <div 
+              <div
                 className="h-80 bg-gray-100 flex items-center justify-center cursor-pointer"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -1104,7 +1105,7 @@ const App = () => {
             <div className="p-6 bg-white">
               <h2 className="text-2xl font-light text-blue-900 mb-1 tracking-tight">{car.marke} {car.modell}</h2>
               <div className="text-3xl font-light text-blue-900 mb-3">{car.preis.toLocaleString()} EUR</div>
-              
+
               {/* Price Analysis */}
               {(() => {
                 const priceAnalysis = analyzePriceQuality(car);
@@ -1123,7 +1124,7 @@ const App = () => {
                   </div>
                 );
               })()}
-              
+
               <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
                 <div className="flex items-center gap-2"><span className="font-semibold">Baujahr:</span> {car.baujahr}</div>
                 <div className="flex items-center gap-2"><span className="font-semibold">Kilometerstand:</span> {car.km.toLocaleString()} km</div>
@@ -1193,13 +1194,13 @@ const App = () => {
 
         {/* Save Search Modal */}
         {showSaveSearchModal && (
-          <div className="fixed inset-0 bg-zinc-50 bg-opacity-50 flex items-center justify-center p-4" style={{zIndex: 10000}}>
+          <div className="fixed inset-0 bg-zinc-50 bg-opacity-50 flex items-center justify-center p-4" style={{ zIndex: 10000 }}>
             <div className="bg-white rounded-lg p-6 w-full max-w-md">
               <h3 className="text-xl font-bold mb-4">Suche speichern</h3>
               <p className="text-sm text-gray-600 mb-4">Gib deiner Suche einen Namen, um sie später schnell wieder zu laden.</p>
-              <input 
-                type="text" 
-                placeholder="z.B. BMW unter 30.000EUR" 
+              <input
+                type="text"
+                placeholder="z.B. BMW unter 30.000EUR"
                 value={searchName}
                 onChange={e => setSearchName(e.target.value)}
                 onKeyPress={e => e.key === 'Enter' && handleSaveSearch()}
@@ -1207,7 +1208,7 @@ const App = () => {
                 autoFocus
               />
               <div className="flex gap-3">
-                <button 
+                <button
                   onClick={() => {
                     setShowSaveSearchModal(false);
                     setSearchName('');
@@ -1216,7 +1217,7 @@ const App = () => {
                 >
                   Abbrechen
                 </button>
-                <button 
+                <button
                   onClick={handleSaveSearch}
                   className="flex-1 bg-blue-600 text-blue-900 py-3 rounded-lg font-semibold"
                 >
@@ -1229,33 +1230,33 @@ const App = () => {
 
         {/* Rating Modal */}
         {showRatingModal && (
-          <div className="fixed inset-0 bg-zinc-50 bg-opacity-50 flex items-center justify-center p-4" style={{zIndex: 10001}}>
+          <div className="fixed inset-0 bg-zinc-50 bg-opacity-50 flex items-center justify-center p-4" style={{ zIndex: 10001 }}>
             <div className="bg-white rounded-lg p-6 w-full max-w-md">
               <h3 className="text-xl font-bold mb-4">Verkäufer bewerten</h3>
-              
+
               {/* Star Rating */}
               <div className="mb-4">
                 <label className="block text-sm font-medium mb-2">Bewertung</label>
                 <div className="flex gap-2 justify-center">
-                  {[1,2,3,4,5].map(star => (
+                  {[1, 2, 3, 4, 5].map(star => (
                     <button
                       key={star}
-                      onClick={() => setRatingForm({...ratingForm, stars: star})}
+                      onClick={() => setRatingForm({ ...ratingForm, stars: star })}
                       className="transition-transform hover:scale-110"
                       type="button"
                     >
-                      <Star 
-                        size={40} 
+                      <Star
+                        size={40}
                         className={star <= ratingForm.stars ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}
                       />
                     </button>
                   ))}
                 </div>
                 <p className="text-center text-sm text-gray-600 mt-2">
-                  {ratingForm.stars === 5 ? 'Hervorragend!' : 
-                   ratingForm.stars === 4 ? 'Sehr gut' :
-                   ratingForm.stars === 3 ? 'Gut' :
-                   ratingForm.stars === 2 ? 'Geht so' : 'Schlecht'}
+                  {ratingForm.stars === 5 ? 'Hervorragend!' :
+                    ratingForm.stars === 4 ? 'Sehr gut' :
+                      ratingForm.stars === 3 ? 'Gut' :
+                        ratingForm.stars === 2 ? 'Geht so' : 'Schlecht'}
                 </p>
               </div>
 
@@ -1265,7 +1266,7 @@ const App = () => {
                 <textarea
                   placeholder="Beschreibe deine Erfahrung mit diesem Verkäufer..."
                   value={ratingForm.comment}
-                  onChange={e => setRatingForm({...ratingForm, comment: e.target.value})}
+                  onChange={e => setRatingForm({ ...ratingForm, comment: e.target.value })}
                   className="w-full px-4 py-3 border rounded-lg"
                   rows={4}
                 />
@@ -1273,7 +1274,7 @@ const App = () => {
 
               {/* Buttons */}
               <div className="flex gap-3">
-                <button 
+                <button
                   onClick={() => {
                     setShowRatingModal(false);
                     setRatingForm({ sellerId: '', stars: 5, comment: '' });
@@ -1283,7 +1284,7 @@ const App = () => {
                 >
                   Abbrechen
                 </button>
-                <button 
+                <button
                   onClick={handleSubmitRating}
                   className="flex-1 bg-blue-600 text-blue-900 py-3 rounded-lg font-semibold"
                   type="button"
@@ -1297,18 +1298,18 @@ const App = () => {
 
         {/* Detail View Modal */}
         {showDetailView && selectedCarForDetail && (
-          <div className="fixed inset-0 bg-zinc-50 bg-opacity-75 flex items-center justify-center" style={{zIndex: 9999}}>
+          <div className="fixed inset-0 bg-zinc-50 bg-opacity-75 flex items-center justify-center" style={{ zIndex: 9999 }}>
             <div className="bg-white rounded-xl w-full h-full md:h-auto md:max-h-[90vh] md:max-w-2xl overflow-hidden flex flex-col">
               {/* Header - Fixed at top */}
               <div className="p-4 border-b flex items-center justify-between bg-white flex-shrink-0">
                 <h2 className="text-lg md:text-xl font-bold truncate pr-4">{selectedCarForDetail.marke} {selectedCarForDetail.modell}</h2>
-                <button 
+                <button
                   onClick={(e) => {
                     e.stopPropagation();
                     setShowDetailView(false);
                     setSelectedCarForDetail(null);
                     setCurrentImageIndex(0);
-                  }} 
+                  }}
                   className="p-2 hover:bg-gray-100 rounded-lg transition flex-shrink-0 bg-gray-100"
                   type="button"
                 >
@@ -1321,28 +1322,28 @@ const App = () => {
                 {/* Image Gallery */}
                 {selectedCarForDetail.bilder && selectedCarForDetail.bilder.length > 0 ? (
                   <div className="relative">
-                    <img 
-                      src={selectedCarForDetail.bilder[currentImageIndex]} 
-                      alt={`${selectedCarForDetail.marke} ${selectedCarForDetail.modell}`} 
+                    <img
+                      src={selectedCarForDetail.bilder[currentImageIndex]}
+                      alt={`${selectedCarForDetail.marke} ${selectedCarForDetail.modell}`}
                       className="w-full h-64 md:h-96 object-cover"
                     />
-                    
+
                     {/* Image Navigation */}
                     {selectedCarForDetail.bilder.length > 1 && (
                       <>
-                        <button 
+                        <button
                           onClick={() => setCurrentImageIndex(prev => prev === 0 ? selectedCarForDetail.bilder.length - 1 : prev - 1)}
                           className="absolute left-2 top-1/2 -translate-y-1/2 bg-zinc-50 bg-opacity-50 text-blue-900 p-3 rounded-lg hover:bg-opacity-70"
                         >
                           <ChevronLeft size={24} />
                         </button>
-                        <button 
+                        <button
                           onClick={() => setCurrentImageIndex(prev => prev === selectedCarForDetail.bilder.length - 1 ? 0 : prev + 1)}
                           className="absolute right-2 top-1/2 -translate-y-1/2 bg-zinc-50 bg-opacity-50 text-blue-900 p-3 rounded-lg hover:bg-opacity-70"
                         >
-                          <ChevronLeft size={24} style={{transform: 'rotate(180deg)'}} />
+                          <ChevronLeft size={24} style={{ transform: 'rotate(180deg)' }} />
                         </button>
-                        
+
                         {/* Image Counter */}
                         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-zinc-50 bg-opacity-70 text-blue-900 px-4 py-2 rounded-lg text-sm">
                           {currentImageIndex + 1} / {selectedCarForDetail.bilder.length}
@@ -1373,7 +1374,7 @@ const App = () => {
                   <div className="border-b pb-4">
                     <h3 className="text-3xl font-bold text-blue-600 mb-1">{selectedCarForDetail.preis.toLocaleString()} EUR</h3>
                     <p className="text-sm text-gray-500 mb-3">{selectedCarForDetail.verkaeuferTyp}</p>
-                    
+
                     {/* Price Analysis */}
                     {(() => {
                       const priceAnalysis = analyzePriceQuality(selectedCarForDetail);
@@ -1477,7 +1478,7 @@ const App = () => {
                     {(() => {
                       const seller = users.find(u => u.id === selectedCarForDetail.sellerId);
                       const rating = getSellerRating(selectedCarForDetail.sellerId);
-                      
+
                       return (
                         <div>
                           <div className="bg-gray-50 rounded-lg p-4 mb-4">
@@ -1489,10 +1490,10 @@ const App = () => {
                               {rating ? (
                                 <div className="text-right">
                                   <div className="flex items-center gap-1">
-                                    {[1,2,3,4,5].map(star => (
-                                      <Star 
-                                        key={star} 
-                                        size={20} 
+                                    {[1, 2, 3, 4, 5].map(star => (
+                                      <Star
+                                        key={star}
+                                        size={20}
                                         className={star <= Math.round(parseFloat(rating.avgStars)) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}
                                       />
                                     ))}
@@ -1511,10 +1512,10 @@ const App = () => {
                                   <div key={review.id} className="bg-white rounded-lg p-3">
                                     <div className="flex items-center gap-2 mb-2">
                                       <div className="flex">
-                                        {[1,2,3,4,5].map(star => (
-                                          <Star 
-                                            key={star} 
-                                            size={14} 
+                                        {[1, 2, 3, 4, 5].map(star => (
+                                          <Star
+                                            key={star}
+                                            size={14}
                                             className={star <= review.stars ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}
                                           />
                                         ))}
@@ -1555,7 +1556,7 @@ const App = () => {
 
               {/* Action Buttons - Fixed at bottom */}
               <div className="p-4 border-t bg-white flex gap-3 flex-shrink-0">
-                <button 
+                <button
                   onClick={(e) => {
                     e.stopPropagation();
                     setShowDetailView(false);
@@ -1567,7 +1568,7 @@ const App = () => {
                 >
                   <X size={20} /> Ablehnen
                 </button>
-                <button 
+                <button
                   onClick={(e) => {
                     e.stopPropagation();
                     handleFavorite(selectedCarForDetail.id);
@@ -1577,7 +1578,7 @@ const App = () => {
                 >
                   <Star size={24} />
                 </button>
-                <button 
+                <button
                   onClick={(e) => {
                     e.stopPropagation();
                     setShowDetailView(false);
@@ -1601,7 +1602,7 @@ const App = () => {
     const userMatches = matches.filter(m => m.buyerId === currentUser.id || m.sellerId === currentUser.id);
     if (selectedChat) {
       const car = cars.find(c => c.id === selectedChat.carId);
-      const chatPartner = users.find(u => 
+      const chatPartner = users.find(u =>
         currentRole === 'kaeufer' ? u.id === selectedChat.sellerId : u.id === selectedChat.buyerId
       );
       return (
@@ -1639,13 +1640,13 @@ const App = () => {
             ))}
           </div>
           <div className="bg-white border-t border-zinc-200 p-4 flex gap-3">
-            <input 
-              type="text" 
-              placeholder="Nachricht..." 
-              value={messageText} 
-              onChange={e => setMessageText(e.target.value)} 
-              onKeyPress={e => e.key === 'Enter' && handleSendMessage()} 
-              className="flex-1 px-4 py-3 border border-zinc-300 rounded-lg focus:ring-1 focus:ring-orange-500 focus:border-orange-500 font-light" 
+            <input
+              type="text"
+              placeholder="Nachricht..."
+              value={messageText}
+              onChange={e => setMessageText(e.target.value)}
+              onKeyPress={e => e.key === 'Enter' && handleSendMessage()}
+              className="flex-1 px-4 py-3 border border-zinc-300 rounded-lg focus:ring-1 focus:ring-orange-500 focus:border-orange-500 font-light"
             />
             <button onClick={handleSendMessage} className="bg-orange-500 text-white p-3 rounded-lg hover:bg-orange-600 transition">
               <Send size={20} strokeWidth={1.5} />
@@ -1672,7 +1673,7 @@ const App = () => {
             </div>
           ) : userMatches.map(m => {
             const car = cars.find(c => c.id === m.carId);
-            const partner = users.find(u => 
+            const partner = users.find(u =>
               currentRole === 'kaeufer' ? u.id === m.sellerId : u.id === m.buyerId
             );
             return (
@@ -1708,7 +1709,7 @@ const App = () => {
               <User size={20} className="text-zinc-600" strokeWidth={1.5} />
             </button>
             <button onClick={() => { setCurrentRole('kaeufer'); setView('swipe'); }} className="text-sm bg-zinc-100 hover:bg-zinc-200 px-3 py-1 rounded-lg text-zinc-700 transition border border-zinc-300 font-light">
-              Käufer
+              Autos suchen
             </button>
             <button onClick={() => setView('matches')} className="p-2.5 hover:bg-zinc-100 rounded-lg transition">
               <MessageCircle size={20} className="text-zinc-600" strokeWidth={1.5} />
@@ -1769,7 +1770,7 @@ const App = () => {
                   <h3 className="font-normal text-blue-900">{c.marke} {c.modell}</h3>
                   <p className="text-sm text-zinc-600 font-light">{c.preis.toLocaleString()} EUR</p>
                 </div>
-                <button 
+                <button
                   onClick={() => {
                     setEditingCarId(c.id);
                     setCarForm({
@@ -1794,7 +1795,7 @@ const App = () => {
                       bilder: c.bilder || []
                     });
                     setView('add-car');
-                  }} 
+                  }}
                   className="text-blue-500 hover:text-blue-600 p-2 hover:bg-blue-50 rounded-lg transition"
                 >
                   <Edit size={20} strokeWidth={1.5} />

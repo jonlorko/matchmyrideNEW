@@ -28,35 +28,35 @@ export const LoginPage = ({ onLogin, onNavigateToRegister }) => {
           <p className="text-zinc-600 text-sm font-light">Premium Automobile Matching</p>
         </div>
         <div className="space-y-4">
-          <input 
-            type="email" 
-            placeholder="E-Mail" 
-            value={loginEmail} 
-            onChange={e => setLoginEmail(e.target.value)} 
+          <input
+            type="email"
+            placeholder="E-Mail"
+            value={loginEmail}
+            onChange={e => setLoginEmail(e.target.value)}
             onKeyPress={handleKeyPress}
             className="w-full px-5 py-4 bg-zinc-100 border border-zinc-300 text-blue-900 placeholder-zinc-400 rounded-lg focus:ring-1 focus:ring-zinc-600 focus:border-zinc-600 focus:outline-none transition font-light"
           />
-          <input 
-            type="password" 
-            placeholder="Passwort" 
-            value={loginPassword} 
-            onChange={e => setLoginPassword(e.target.value)} 
+          <input
+            type="password"
+            placeholder="Passwort"
+            value={loginPassword}
+            onChange={e => setLoginPassword(e.target.value)}
             onKeyPress={handleKeyPress}
             className="w-full px-5 py-4 bg-zinc-100 border border-zinc-300 text-blue-900 placeholder-zinc-400 rounded-lg focus:ring-1 focus:ring-zinc-600 focus:border-zinc-600 focus:outline-none transition font-light"
           />
-          <button 
-            onClick={handleSubmit} 
+          <button
+            onClick={handleSubmit}
             className="w-full bg-orange-500 hover:bg-orange-600 text-white py-4 rounded-lg font-normal transition tracking-wide"
           >
             Anmelden
           </button>
-          <button 
-            onClick={onNavigateToRegister} 
+          <button
+            onClick={onNavigateToRegister}
             className="w-full border border-zinc-300 text-blue-900 hover:bg-zinc-100 py-4 rounded-lg font-light transition"
           >
             Registrieren
           </button>
-          
+
           <div className="relative my-8">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-zinc-200"></div>
@@ -65,21 +65,13 @@ export const LoginPage = ({ onLogin, onNavigateToRegister }) => {
               <span className="px-3 bg-white text-zinc-500 font-light">Demo-Zugang</span>
             </div>
           </div>
-          
-          <div className="grid grid-cols-2 gap-3">
-            <button 
-              onClick={() => onLogin('kaeufer@demo.de', 'demo')} 
-              className="bg-zinc-100 text-zinc-700 py-3 rounded-lg font-light text-sm hover:bg-zinc-200 transition border border-zinc-300"
-            >
-              Kaeufer
-            </button>
-            <button 
-              onClick={() => onLogin('verkaeufer@demo.de', 'demo')} 
-              className="bg-zinc-100 text-zinc-700 py-3 rounded-lg font-light text-sm hover:bg-zinc-200 transition border border-zinc-300"
-            >
-              Verkaeufer
-            </button>
-          </div>
+
+          <button
+            onClick={() => onLogin('demo@demo.de', 'demo')}
+            className="w-full bg-zinc-100 text-zinc-700 py-3 rounded-lg font-light text-sm hover:bg-zinc-200 transition border border-zinc-300"
+          >
+            Demo starten
+          </button>
         </div>
       </div>
     </div>
