@@ -4,7 +4,6 @@ import { LoginPage } from './components/auth/LoginPage';
 import { RegisterPage } from './components/auth/RegisterPage';
 import { Logo } from './components/shared/Logo';
 import { ProfilePage } from './components/pages/ProfilePage';
-import { FavoritesPage } from './components/pages/FavoritesPage';
 import { AddCarPage } from './components/pages/AddCarPage';
 import { FilterModal } from './components/ui/FilterModal';
 import { getCoordinatesForPlz } from './utils/plzData';
@@ -18,7 +17,6 @@ const App = () => {
   const [users, setUsers] = useState([]);
   const [matches, setMatches] = useState([]);
   const [requests, setRequests] = useState([]);
-  const [favorites, setFavorites] = useState([]);
   const [currentCarIndex, setCurrentCarIndex] = useState(0);
   const [selectedChat, setSelectedChat] = useState(null);
   const [messageText, setMessageText] = useState('');
@@ -288,18 +286,6 @@ const App = () => {
         } catch (e) {
           console.error('Error loading matches:', e);
           setMatches([]);
-        }
-
-        // Load favorites safely
-        try {
-          const f = localStorage.getItem('favorites');
-          if (f && f) {
-            const parsedFavorites = JSON.parse(f);
-            setFavorites(Array.isArray(parsedFavorites) ? parsedFavorites : []);
-          }
-        } catch (e) {
-          console.error('Error loading favorites:', e);
-          setFavorites([]);
         }
 
         // Load saved searches safely
@@ -632,17 +618,6 @@ const App = () => {
     alert('Profil aktualisiert!');
   };
 
-  const handleFavorite = async (carId) => {
-    const fav = { id: Date.now(), carId, buyerId: currentUser.id };
-    const updated = [...favorites, fav];
-    setFavorites(updated);
-    try {
-      localStorage.setItem('favorites', JSON.stringify(updated));
-    } catch (e) {
-      console.error('Error saving favorites:', e);
-    }
-  };
-
   const resetFilters = () => {
     setFilters({ marke: '', modell: '', karosserie: '', zustand: '', verkaeuferTyp: '', sitzplaetze: '', tueren: '', farbe: '', minPreis: 0, maxPreis: 100000, minBaujahr: 2000, maxBaujahr: 2025, kraftstoffart: '', minKm: 0, maxKm: 300000, getriebe: '', minPS: 0, maxPS: 500, umkreis: 0, ausstattung: [] });
   };
@@ -969,17 +944,6 @@ const App = () => {
     );
   }
 
-  if (view === 'favorites') {
-    return (
-      <FavoritesPage
-        favorites={favorites}
-        currentUser={currentUser}
-        cars={cars}
-        onBack={() => setView('swipe')}
-      />
-    );
-  }
-
   if (view === 'swipe') {
     const filteredCars = getFilteredCars();
     if (currentCarIndex >= filteredCars.length) {
@@ -988,7 +952,6 @@ const App = () => {
           <header className="bg-white p-4 flex justify-between items-center">
             <h1 className="text-xl font-bold">MatchMyRide</h1>
             <div className="flex gap-2">
-              <button onClick={() => setView('favorites')} className="p-2"><Star size={20} /></button>
               <button onClick={() => setShowFilterModal(true)} className="p-2"><Filter size={20} /></button>
               <button onClick={() => setView('profile')} className="p-2"><User size={20} /></button>
               <button onClick={() => { setCurrentRole('verkaeufer'); setView('dashboard'); }} className="text-sm bg-zinc-100 hover:bg-zinc-200 px-3 py-1 rounded-lg text-zinc-700 transition border border-zinc-300 font-light">
@@ -1014,31 +977,35 @@ const App = () => {
 
     const car = filteredCars[currentCarIndex];
     return (
-      <div className="min-h-screen bg-zinc-50 flex flex-col">
-        <header className="bg-white border-b border-zinc-200 px-6 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-light text-blue-900 tracking-wide">MatchMyRide</h1>
-          <div className="flex gap-1">
-            <button onClick={() => setView('favorites')} className="p-2.5 hover:bg-zinc-100 rounded-lg transition">
-              <Star size={20} className="text-zinc-600" strokeWidth={1.5} />
+      <div className="min-h-screen bg-gray-50 flex flex-col">
+        <header className="bg-white border-b border-gray-200 px-5 py-4 flex justify-between items-center">
+          <h1 className="text-xl font-bold text-blue-600">MatchMyRide</h1>
+          <div className="flex gap-4 items-center">
+            <button onClick={() => setShowFilterModal(true)} className="text-gray-500 hover:text-gray-700 transition">
+              <Filter size={22} strokeWidth={1.5} />
             </button>
-            <button onClick={() => setShowFilterModal(true)} className="p-2.5 hover:bg-zinc-100 rounded-lg transition">
-              <Filter size={20} className="text-zinc-600" strokeWidth={1.5} />
+            <button onClick={() => setView('profile')} className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-semibold">
+              {currentUser?.vorname?.charAt(0) || 'U'}
             </button>
-            <button onClick={() => setView('profile')} className="p-2.5 hover:bg-zinc-100 rounded-lg transition">
-              <User size={20} className="text-zinc-600" strokeWidth={1.5} />
-            </button>
-            <button onClick={() => { setCurrentRole('verkaeufer'); setView('dashboard'); }} className="text-sm bg-zinc-100 hover:bg-zinc-200 px-3 py-1 rounded-lg text-zinc-700 transition border border-zinc-300 font-light">
-              Meine Autos 
-            </button>
-            <button onClick={() => setView('matches')} className="p-2.5 hover:bg-zinc-100 rounded-lg transition">
-              <MessageCircle size={20} className="text-zinc-600" strokeWidth={1.5} />
-            </button>
-            <button onClick={handleLogout} className="text-sm text-red-400 hover:text-red-300 px-2 font-light">Logout</button>
           </div>
         </header>
-        <div className="flex-1 flex items-center justify-center p-6">
+        <div className="bg-white border-b border-gray-200 px-5 py-3 flex gap-2">
+          <button className="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold">
+            Entdecken
+          </button>
+          <button onClick={() => { setCurrentRole('verkaeufer'); setView('dashboard'); }} className="bg-gray-100 text-gray-600 px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition">
+            Meine Autos
+          </button>
+          <button onClick={() => setView('matches')} className="bg-gray-100 text-gray-600 px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition">
+            Nachrichten
+          </button>
+          <button onClick={handleLogout} className="ml-auto text-gray-400 hover:text-red-500 text-sm font-medium transition">
+            Logout
+          </button>
+        </div>
+        <div className="flex-1 flex items-center justify-center p-5">
           <div
-            className="bg-white rounded-xl border border-zinc-200 w-full max-w-md overflow-hidden shadow-2xl relative"
+            className="bg-white rounded-2xl w-full max-w-sm overflow-hidden shadow-lg relative"
             style={{
               transform: `translateX(${swipeCurrentX}px) rotate(${swipeCurrentX * 0.03}deg)`,
               transition: isSwiping ? 'none' : 'transform 0.3s ease-out',
@@ -1102,40 +1069,39 @@ const App = () => {
                 <Car size={120} className="text-gray-400" />
               </div>
             )}
-            <div className="p-6 bg-white">
-              <h2 className="text-2xl font-light text-blue-900 mb-1 tracking-tight">{car.marke} {car.modell}</h2>
-              <div className="text-3xl font-light text-blue-900 mb-3">{car.preis.toLocaleString()} EUR</div>
-
-              {/* Price Analysis */}
+            <div className="p-5 bg-white">
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <h2 className="text-xl font-semibold text-gray-900">{car.marke} {car.modell}</h2>
+                  <p className="text-gray-500 text-sm">{car.standort}</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-blue-600">{car.preis.toLocaleString()} €</div>
+                  {(() => {
+                    const priceAnalysis = analyzePriceQuality(car);
+                    return (
+                      <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold mt-1 ${priceAnalysis.bgColor} ${priceAnalysis.color}`}>
+                        {priceAnalysis.label}
+                      </span>
+                    );
+                  })()}
+                </div>
+              </div>
               {(() => {
                 const priceAnalysis = analyzePriceQuality(car);
                 return (
-                  <div className={`${priceAnalysis.bgColor} ${priceAnalysis.borderColor} border-2 rounded-lg p-3 mb-4`}>
-                    <div className="flex items-center gap-2">
-                      <span className="text-2xl">{priceAnalysis.icon}</span>
-                      <div className="flex-1">
-                        <p className={`font-bold ${priceAnalysis.color}`}>{priceAnalysis.label}</p>
-                        <p className="text-sm text-gray-600">{priceAnalysis.message}</p>
-                      </div>
-                    </div>
-                    <p className="text-xs text-gray-500 mt-2">
-                      Geschätzter Marktwert: ~{priceAnalysis.estimatedPrice.toLocaleString()} EUR
-                    </p>
-                  </div>
+                  <p className="text-xs text-gray-500 mb-3">
+                    Geschätzter Marktwert: ~{priceAnalysis.estimatedPrice.toLocaleString()} € · {priceAnalysis.message}
+                  </p>
                 );
               })()}
 
-              <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
-                <div className="flex items-center gap-2"><span className="font-semibold">Baujahr:</span> {car.baujahr}</div>
-                <div className="flex items-center gap-2"><span className="font-semibold">Kilometerstand:</span> {car.km.toLocaleString()} km</div>
-                <div className="flex items-center gap-2"><span className="font-semibold">Kraftstoff:</span> {car.kraftstoffart}</div>
-                <div className="flex items-center gap-2"><span className="font-semibold">Getriebe:</span> {car.getriebe}</div>
-                <div className="flex items-center gap-2"><span className="font-semibold">Leistung:</span> {car.ps} PS</div>
-                <div className="flex items-center gap-2"><span className="font-semibold">Karosserie:</span> {car.karosserie}</div>
-                <div className="flex items-center gap-2"><span className="font-semibold">Zustand:</span> {car.zustand}</div>
-                <div className="flex items-center gap-2"><span className="font-semibold">Verkäufer:</span> {car.verkaeuferTyp}</div>
-                <div className="flex items-center gap-2"><span className="font-semibold">Standort:</span> {car.standort}</div>
-                <div className="flex items-center gap-2"><span className="font-semibold">Farbe:</span> {car.farbe}</div>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg text-sm">{car.baujahr}</span>
+                <span className="bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg text-sm">{car.km.toLocaleString()} km</span>
+                <span className="bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg text-sm">{car.ps} PS</span>
+                <span className="bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg text-sm">{car.getriebe}</span>
+                <span className="bg-gray-100 text-gray-600 px-3 py-1.5 rounded-lg text-sm">{car.kraftstoffart}</span>
               </div>
               {car.ausstattung && car.ausstattung.length > 0 && (
                 <div className="mb-4">
@@ -1154,22 +1120,19 @@ const App = () => {
                 </div>
               )}
             </div>
-            <div className="flex gap-3 p-6 pt-0 bg-white">
-              <button onClick={(e) => { e.stopPropagation(); handleSwipe('left'); }} className="flex-1 bg-zinc-100 border border-zinc-300 text-zinc-700 p-4 rounded-lg flex items-center justify-center gap-2 hover:bg-zinc-200 transition font-light">
-                <X size={20} strokeWidth={1.5} /> Ablehnen
+            <div className="flex gap-3 p-6 pt-0 bg-white justify-center">
+              <button onClick={(e) => { e.stopPropagation(); handleSwipe('left'); }} className="w-14 h-14 rounded-full border-2 border-gray-200 bg-white flex items-center justify-center hover:bg-gray-50 transition shadow-sm">
+                <X size={24} className="text-gray-400" strokeWidth={2} />
               </button>
-              <button onClick={(e) => { e.stopPropagation(); handleFavorite(car.id); }} className="bg-zinc-100 border border-zinc-300 text-zinc-700 p-4 rounded-lg hover:bg-zinc-200 transition">
-                <Star size={20} strokeWidth={1.5} />
-              </button>
-              <button onClick={(e) => { e.stopPropagation(); handleSwipe('right'); }} className="flex-1 bg-orange-500 text-white p-4 rounded-lg flex items-center justify-center gap-2 hover:bg-orange-600 transition font-normal">
-                <Heart size={20} strokeWidth={1.5} /> Anfragen
+              <button onClick={(e) => { e.stopPropagation(); handleSwipe('right'); }} className="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center hover:bg-blue-700 transition shadow-md">
+                <Heart size={24} className="text-white" strokeWidth={2} fill="white" />
               </button>
             </div>
           </div>
         </div>
         {/* Swipe Instructions */}
-        <div className="mt-4 text-center text-zinc-400 text-sm font-light pb-4">
-          <p>Wische nach rechts für Anfrage | Wische nach links zum Überspringen</p>
+        <div className="mt-4 text-center text-gray-400 text-sm pb-4">
+          <p>Wische nach rechts zum Anfragen</p>
         </div>
 
         {showFilterModal && (
@@ -1571,16 +1534,6 @@ const App = () => {
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleFavorite(selectedCarForDetail.id);
-                  }}
-                  className="bg-white border-2 border-gray-300 text-blue-900 p-3 rounded-lg hover:bg-yellow-500"
-                  type="button"
-                >
-                  <Star size={24} />
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
                     setShowDetailView(false);
                     setSelectedCarForDetail(null);
                     handleSwipe('right');
@@ -1606,16 +1559,16 @@ const App = () => {
         currentRole === 'kaeufer' ? u.id === selectedChat.sellerId : u.id === selectedChat.buyerId
       );
       return (
-        <div className="min-h-screen bg-zinc-50 flex flex-col">
-          <header className="bg-white border-b border-zinc-200 px-6 py-4">
+        <div className="min-h-screen bg-gray-50 flex flex-col">
+          <header className="bg-white border-b border-gray-200 px-5 py-4">
             <div className="flex items-center gap-4">
-              <button onClick={() => setSelectedChat(null)} className="p-2 hover:bg-zinc-100 rounded-lg transition">
-                <ChevronLeft size={24} className="text-zinc-600" strokeWidth={1.5} />
+              <button onClick={() => setSelectedChat(null)} className="p-2 hover:bg-gray-100 rounded-lg transition">
+                <ChevronLeft size={24} className="text-gray-600" strokeWidth={1.5} />
               </button>
               <div className="flex-1">
-                <h1 className="font-normal text-blue-900">{car && car.marke} {car && car.modell}</h1>
+                <h1 className="font-semibold text-gray-900">{car && car.marke} {car && car.modell}</h1>
                 {chatPartner && (
-                  <p className="text-sm text-zinc-600 font-light flex items-center gap-1">
+                  <p className="text-sm text-gray-500 flex items-center gap-1">
                     <User size={12} strokeWidth={1.5} />
                     {chatPartner.vorname} {chatPartner.name}
                   </p>
@@ -1701,22 +1654,29 @@ const App = () => {
     const sellerReqs = requests.filter(r => r.sellerId === currentUser.id && r.status === 'pending');
     const myCars = cars.filter(c => c.sellerId === currentUser.id);
     return (
-      <div className="min-h-screen bg-zinc-50">
-        <header className="bg-white border-b border-zinc-200 px-6 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-light text-blue-900 tracking-wide">Dashboard</h1>
-          <div className="flex gap-1">
-            <button onClick={() => setView('profile')} className="p-2.5 hover:bg-zinc-100 rounded-lg transition">
-              <User size={20} className="text-zinc-600" strokeWidth={1.5} />
+      <div className="min-h-screen bg-gray-50">
+        <header className="bg-white border-b border-gray-200 px-5 py-4 flex justify-between items-center">
+          <h1 className="text-xl font-bold text-blue-600">MatchMyRide</h1>
+          <div className="flex gap-4 items-center">
+            <button onClick={() => setView('profile')} className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-semibold">
+              {currentUser?.vorname?.charAt(0) || 'U'}
             </button>
-            <button onClick={() => { setCurrentRole('kaeufer'); setView('swipe'); }} className="text-sm bg-zinc-100 hover:bg-zinc-200 px-3 py-1 rounded-lg text-zinc-700 transition border border-zinc-300 font-light">
-              Autos suchen
-            </button>
-            <button onClick={() => setView('matches')} className="p-2.5 hover:bg-zinc-100 rounded-lg transition">
-              <MessageCircle size={20} className="text-zinc-600" strokeWidth={1.5} />
-            </button>
-            <button onClick={handleLogout} className="text-sm text-red-500 hover:text-red-600 px-2 font-light">Logout</button>
           </div>
         </header>
+        <div className="bg-white border-b border-gray-200 px-5 py-3 flex gap-2">
+          <button onClick={() => { setCurrentRole('kaeufer'); setView('swipe'); }} className="bg-gray-100 text-gray-600 px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition">
+            Entdecken
+          </button>
+          <button className="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold">
+            Meine Autos
+          </button>
+          <button onClick={() => setView('matches')} className="bg-gray-100 text-gray-600 px-5 py-2 rounded-full text-sm font-medium hover:bg-gray-200 transition">
+            Nachrichten
+          </button>
+          <button onClick={handleLogout} className="ml-auto text-gray-400 hover:text-red-500 text-sm font-medium transition">
+            Logout
+          </button>
+        </div>
         <div className="p-6">
           <div className="bg-white rounded-xl border border-zinc-200 p-6 mb-6 shadow-sm">
             <h2 className="text-lg font-normal text-blue-900 mb-4">Anfragen ({sellerReqs.length})</h2>
@@ -1757,7 +1717,7 @@ const App = () => {
           <div className="bg-white rounded-xl border border-zinc-200 p-6 shadow-sm">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-normal text-blue-900">Meine Autos ({myCars.length})</h2>
-              <button onClick={() => setView('add-car')} className="bg-orange-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-orange-600 transition font-normal">
+              <button onClick={() => setView('add-car')} className="bg-green-500 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-green-600 transition font-medium">
                 <Plus size={18} strokeWidth={1.5} /> Neu
               </button>
             </div>
