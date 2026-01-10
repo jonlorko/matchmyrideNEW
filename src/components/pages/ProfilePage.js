@@ -11,39 +11,39 @@ export const ProfilePage = ({
   onImageUpload
 }) => {
   return (
-    <div className="min-h-screen bg-zinc-50">
-      <header className="bg-white border-b border-zinc-200 px-6 py-4 flex items-center gap-4">
-        <button onClick={onBack} className="p-2 hover:bg-zinc-100 rounded-lg transition">
-          <ChevronLeft size={24} className="text-zinc-600" strokeWidth={1.5} />
+    <div className="min-h-screen bg-gray-50">
+      <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center gap-4">
+        <button onClick={onBack} className="p-2 hover:bg-gray-100 rounded-lg transition">
+          <ChevronLeft size={24} className="text-gray-600" strokeWidth={1.5} />
         </button>
-        <h1 className="text-xl font-light text-blue-900 tracking-wide">Profil</h1>
+        <h1 className="text-xl font-bold text-blue-600 tracking-wide">Profil</h1>
       </header>
       <div className="p-6">
-        <div className="bg-white rounded-xl border border-zinc-200 p-6 space-y-6 shadow-sm">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-6 shadow-sm">
           <div className="text-center mb-6">
             {profileForm.profilbild ? (
               <div className="relative inline-block">
                 <img
                   src={profileForm.profilbild}
                   alt="Profilbild"
-                  className="w-28 h-28 rounded-xl mx-auto mb-3 object-cover border-2 border-zinc-200"
+                  className="w-28 h-28 rounded-xl mx-auto mb-3 object-cover border-2 border-gray-200"
                 />
                 <button
                   onClick={() => setProfileForm({ ...profileForm, profilbild: '' })}
-                  className="absolute -top-2 -right-2 bg-white border border-zinc-300 text-red-500 rounded-lg p-1.5 hover:bg-red-50 transition shadow-sm"
+                  className="absolute -top-2 -right-2 bg-white border border-gray-200 text-red-500 rounded-lg p-1.5 hover:bg-red-50 transition shadow-sm"
                 >
                   <X size={16} strokeWidth={1.5} />
                 </button>
               </div>
             ) : (
-              <div className="w-28 h-28 bg-zinc-100 rounded-xl mx-auto mb-3 flex items-center justify-center border-2 border-zinc-200">
-                <User size={48} className="text-zinc-600" strokeWidth={1.5} />
+              <div className="w-28 h-28 bg-gray-100 rounded-xl mx-auto mb-3 flex items-center justify-center border-2 border-gray-200">
+                <User size={48} className="text-gray-500" strokeWidth={1.5} />
               </div>
             )}
-            <h2 className="text-xl font-normal text-blue-900">{currentUser.vorname} {currentUser.name}</h2>
+            <h2 className="text-xl font-semibold text-gray-900">{currentUser.vorname} {currentUser.name}</h2>
             <p className="text-zinc-600 font-light text-sm">{currentUser.email}</p>
 
-            <label className="mt-4 inline-block cursor-pointer bg-zinc-100 text-zinc-700 px-5 py-2.5 rounded-lg hover:bg-zinc-200 transition border border-zinc-300 font-light">
+            <label className="mt-4 inline-block cursor-pointer bg-gray-100 text-gray-700 px-5 py-2.5 rounded-lg hover:bg-gray-200 transition border border-gray-200 font-medium">
               <input
                 type="file"
                 accept="image/*"
@@ -141,7 +141,7 @@ export const ProfilePage = ({
 
           <button
             onClick={onSave}
-            className="w-full bg-orange-500 text-white py-4 rounded-lg font-normal hover:bg-orange-600 transition tracking-wide"
+            className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700 transition tracking-wide"
           >
             Speichern
           </button>

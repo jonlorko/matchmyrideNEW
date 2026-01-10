@@ -15,30 +15,30 @@ export const AddCarPage = ({
   isEditMode
 }) => {
   return (
-    <div className="min-h-screen bg-zinc-50">
-      <header className="bg-white border-b border-zinc-200 px-6 py-4 flex items-center gap-4">
-        <button onClick={onBack} className="p-2 hover:bg-zinc-100 rounded-lg transition">
-          <ChevronLeft size={24} className="text-zinc-600" strokeWidth={1.5} />
+    <div className="min-h-screen bg-gray-50">
+      <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center gap-4">
+        <button onClick={onBack} className="p-2 hover:bg-gray-100 rounded-lg transition">
+          <ChevronLeft size={24} className="text-gray-600" strokeWidth={1.5} />
         </button>
-        <h1 className="text-xl font-light text-blue-900 tracking-wide">
+        <h1 className="text-xl font-bold text-blue-600 tracking-wide">
           {isEditMode ? 'Auto bearbeiten' : 'Auto hinzufügen'}
         </h1>
       </header>
       <div className="p-6">
-        <div className="bg-white rounded-xl border border-zinc-200 p-6 space-y-6 shadow-sm">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-6 shadow-sm">
 
           {/* Fahrzeug Grunddaten */}
-          <div className="border-b border-zinc-200 pb-6">
-            <h3 className="text-lg font-normal text-blue-900 mb-4">Fahrzeugdaten</h3>
+          <div className="border-b border-gray-200 pb-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Fahrzeugdaten</h3>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-normal text-zinc-700 mb-2">Marke *</label>
-                <input type="text" placeholder="z.B. BMW" value={carForm.marke} onChange={e => setCarForm({ ...carForm, marke: e.target.value })} className="w-full px-4 py-3 border border-zinc-300 rounded-lg focus:ring-1 focus:ring-orange-500 focus:border-orange-500 font-light" required />
+                <label className="block text-sm font-normal text-gray-700 mb-2">Marke *</label>
+                <input type="text" placeholder="z.B. BMW" value={carForm.marke} onChange={e => setCarForm({ ...carForm, marke: e.target.value })} className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500" required />
               </div>
 
               <div>
-                <label className="block text-sm font-normal text-zinc-700 mb-2">Modell *</label>
+                <label className="block text-sm font-normal text-gray-700 mb-2">Modell *</label>
                 <input type="text" placeholder="z.B. 3er" value={carForm.modell} onChange={e => setCarForm({ ...carForm, modell: e.target.value })} className="w-full px-4 py-3 border rounded-lg" required />
               </div>
 
@@ -305,7 +305,7 @@ export const AddCarPage = ({
             )}
           </div>
 
-          <button onClick={() => onSave(carForm)} className="w-full bg-orange-500 text-white py-4 rounded-lg font-normal mt-6 hover:bg-orange-600 transition tracking-wide">
+          <button onClick={() => onSave(carForm)} className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold mt-6 hover:bg-blue-700 transition tracking-wide">
             {isEditMode ? 'Änderungen speichern' : 'Auto hinzufügen'}
           </button>
           <p className="text-xs text-gray-500 text-center">* Pflichtfelder</p>
